@@ -1,4 +1,4 @@
-package edu.virginia.cs.hw7.hw7_course_review;
+package edu.virginia.cs.gui;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
