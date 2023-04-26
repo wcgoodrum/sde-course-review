@@ -1,11 +1,11 @@
 package edu.virginia.cs.hw7.hw7_course_review;
 
-public class student {
-    private final String userName;
-    private final String passWord;
+public class Course {
+    private final String department;
+    private final String catalog;
     private int id;
 
-    public student(String user, String pass) {
+    public Course (String user, String pass) {
         userName = user;
         passWord = pass; // maybe implement hashing if we have time
     }
