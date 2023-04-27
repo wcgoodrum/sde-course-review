@@ -17,10 +17,11 @@ public interface DataManager {
      */
     Student createNewUser(String user, String password, String confirm);
 
-    /*
-     *returns if the course is valid
+    /**
+     *returns true if the course is valid
+     * @throws IllegalArgumentException if the course is valid but the Student has already made a review
      */
-    boolean validCourse(String courseName);
+    boolean validCourse(String courseName, Student student);
 
     /**
      *adds a course to the database if the course does not exist

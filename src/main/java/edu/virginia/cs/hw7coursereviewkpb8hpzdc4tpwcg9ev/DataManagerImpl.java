@@ -15,7 +15,7 @@ public class DataManagerImpl extends DataManager{
     }
 
     @Override
-    public boolean validCourse(String courseName) {
+    public boolean validCourse(String courseName, Student student) {
         return false;
     }
 
