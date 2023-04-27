@@ -2,7 +2,7 @@ package edu.virginia.cs.hw7coursereviewkpb8hpzdc4tpwcg9ev;
 
 import java.util.List;
 
-public class DataManagerImpl extends DataManager{
+public class DataManagerImpl implements DataManager {
 
     @Override
     public Student login(String user, String password) {

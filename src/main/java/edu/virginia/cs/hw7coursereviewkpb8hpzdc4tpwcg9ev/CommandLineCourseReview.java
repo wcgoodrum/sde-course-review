@@ -91,7 +91,7 @@ public class CommandLineCourseReview {
             double rating = dataManager.getAverageRating(courseName);
             System.out.println(courseName + "\t\t\t"+rating+"/5 stars\n");
             for (int i = 0; i < reviews.size(); i++) {
-                System.out.println(reviews.getText()+"\n");
+                System.out.println(reviews.get(i).getText()+"\n");
             }
         }
         catch (IllegalArgumentException e){
