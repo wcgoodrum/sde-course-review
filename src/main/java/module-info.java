@@ -1,12 +1,9 @@
-module edu.virginia.cs.hw7.hw7_course_review {
+module edu.virginia.cs.hw7coursereviewkpb8hpzdc4tpwcg9ev {
     requires javafx.controls;
     requires javafx.fxml;
+    requires java.sql;
 
 
-    opens edu.virginia.cs.hw7.hw7_course_review to javafx.fxml;
-    exports edu.virginia.cs.hw7.hw7_course_review;
-    exports edu.virginia.cs.gui;
-    opens edu.virginia.cs.gui to javafx.fxml;
-    exports edu.virginia.cs.course_review;
-    opens edu.virginia.cs.course_review to javafx.fxml;
+    opens edu.virginia.cs.hw7coursereviewkpb8hpzdc4tpwcg9ev to javafx.fxml;
+    exports edu.virginia.cs.hw7coursereviewkpb8hpzdc4tpwcg9ev;
 }
