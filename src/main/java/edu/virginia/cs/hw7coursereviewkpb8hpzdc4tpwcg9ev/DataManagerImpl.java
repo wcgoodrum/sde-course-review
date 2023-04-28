@@ -14,20 +14,20 @@ public class DataManagerImpl implements DataManager {
     @Override
     public void connect() throws SQLException {
 
-        String filePath = "C:\\Users\\13186\\hw7-coursereview-kpb8hp-zdc4tp-wcg9ev\\Reviews.sqlite3";
+        String filePath = "Reviews.sqlite3";
 
         if (connected) {
             throw new IllegalStateException("Already Connected.");
         }
-
         try {
 //            String url = ConfigSingleton.getInstance().getDatabaseFilename();
             Class.forName("org.sqlite.JDBC");
             connection = DriverManager.getConnection("jdbc:sqlite:" + filePath);
             connection.setAutoCommit(false);
             connected = true;
+            createTables(); // needs to debug
         }
-        catch(Exception e) {
+        catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
