@@ -4,8 +4,6 @@ public class Review {
     private int id;
     private String text;
     private int rating;
-    // TODO:
-
 
     public Review(int id, String text, int rating) {
         this.id = id;
