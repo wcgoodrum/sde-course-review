@@ -2,6 +2,27 @@ package edu.virginia.cs.hw7coursereviewkpb8hpzdc4tpwcg9ev;
 import java.sql.SQLException;
 import java.util.List;
 public interface DataManager {
+
+    /**
+     * Establishes the database connection. Must be called before any other
+     * methods are called.
+     *
+     * @throws IllegalStateException if the Manager is already connected
+     */
+    void connect() throws SQLException;
+
+    /**
+     * Creates the tables Students, Courses, and Reviews in the database. Throws
+     * an IllegalStateException if the tables already exist.
+     *
+     * This *does not* populate the tables Data.
+     *
+     * @throws IllegalStateException if the tables already exist
+     * @throws IllegalStateException if the Manager hasn't connected yet
+     */
+    void createTables() throws SQLException;
+
+
     /**
      *returns Student with that username
      *returns null if password is wrong
@@ -11,9 +32,9 @@ public interface DataManager {
 
     /**
      *returns created Student
-     *@throw IllegalArgumentException if the username already exists
-     *@throw IllegalArgumantException if username or password is empty
-     *@throw IllegalArgumentException if password does not equal confirm
+     *@throws IllegalArgumentException if the username already exists
+     *@throws IllegalArgumentException if username or password is empty
+     *@throws IllegalArgumentException if password does not equal confirm
      */
     Student createNewUser(String user, String password, String confirm);
 
@@ -26,25 +47,33 @@ public interface DataManager {
     /**
      *adds a course to the database if the course does not exist
      *adds review to the course
-     *@throw IllegalArgumentException if Student does not exist
-     *@throw IllegalArgumentException if text is empty              if you care
-     *@throw IllegalArgumentException if courseName is not vaild
-     *@throw IllegalArgumentException if rating is not between 1-5
-     *@throw IllegalArgumentException if Student already has a review in course
+     *@throws IllegalArgumentException if Student does not exist
+     *@throws IllegalArgumentException if text is empty              if you care
+     *@throws IllegalArgumentException if courseName is not vaild
+     *@throws IllegalArgumentException if rating is not between 1-5
+     *@throws IllegalArgumentException if Student already has a review in course
      */
     void addReview(Student student, String courseName, String text, int rating);
 
     /**
      *returns all the reviews in courseName
-     *@throw IllegalArgumentException if courseName is not vaild
-     *@throw IllegalArgumentException if course has no reviews/does not exist
+     *@throws IllegalArgumentException if courseName is not vaild
+     *@throws IllegalArgumentException if course has no reviews/does not exist
      */
     List<Review> getReviews(String courseName);
 
     /**
      *returns average course rating
-     *@throw IllegalArgumentException if courseName is not vaild
-     *@throw IllegalArgumentException if course has no reviews/does not exist
+     *@throws IllegalArgumentException if courseName is not vaild
+     *@throws IllegalArgumentException if course has no reviews/does not exist
      */
     double getAverageRating(String courseName);
+
+    /**
+     * Commits any changes and ends the connection.
+     *
+     * @throws IllegalStateException if the Manager hasn't connected yet
+     */
+    public void disconnect() throws SQLException;
+
 }
