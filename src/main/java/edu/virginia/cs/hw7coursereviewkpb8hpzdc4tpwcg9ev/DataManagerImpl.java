@@ -103,6 +103,12 @@ public class DataManagerImpl implements DataManager {
 
     @Override
     public void disconnect() throws SQLException {
-
+        if (!connected) {
+            throw new IllegalStateException("The manager isn't connected.");
+        }
+        connection.commit();
+        connection.close();
+        connected = false;
     }
+
 }
