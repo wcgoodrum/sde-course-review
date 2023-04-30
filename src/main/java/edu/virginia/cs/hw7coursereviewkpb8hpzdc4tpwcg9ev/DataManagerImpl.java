@@ -10,7 +10,7 @@ public class DataManagerImpl implements DataManager {
 
     @Override
     public void connect() throws SQLException {
-        // i think i need to handle it when file base doesn't exist...?
+        // I think I need to handle it when file base doesn't exist...?
         String filePath = "Reviews.sqlite3";
 
         if (connected) {
@@ -22,6 +22,7 @@ public class DataManagerImpl implements DataManager {
             connection = DriverManager.getConnection("jdbc:sqlite:" + filePath);
             connection.setAutoCommit(false);
             connected = true;
+            deleteTables();
             createTables(); // needs to debug
         }
         catch (Exception e) {
@@ -69,7 +70,7 @@ public class DataManagerImpl implements DataManager {
             // populate tables
             populateCoursesTable();
             populateStudentsTable();
-            populateReviewsTable();
+//            populateReviewsTable();
         }
     }
 
@@ -90,7 +91,7 @@ public class DataManagerImpl implements DataManager {
 
     @Override
     public void addReview(Student student, String courseName, String text, int rating) {
-
+        // TODO:
     }
 
     @Override
@@ -124,13 +125,10 @@ public class DataManagerImpl implements DataManager {
         Statement statementEmily = connection.createStatement();
         Statement statementAnna = connection.createStatement();
 
-        ResultSet johnRS = statementJohn.executeQuery(queryToAddJohn);
-        ResultSet emilyRS = statementEmily.executeQuery(queryToAddEmily);
-        ResultSet annaRS = statementAnna.executeQuery(queryToAddAnna);
+        statementJohn.executeUpdate(queryToAddJohn);
+        statementEmily.executeUpdate(queryToAddEmily);
+        statementAnna.executeUpdate(queryToAddAnna);
 
-        johnRS.close();
-        emilyRS.close();
-        annaRS.close();
     }
 
     private void populateCoursesTable() throws SQLException {
@@ -142,13 +140,10 @@ public class DataManagerImpl implements DataManager {
         Statement statementHIST2350 = connection.createStatement();
         Statement statementJAPN1010 = connection.createStatement();
 
-        ResultSet CS3140RS = statementCS3140.executeQuery(queryToAddCS3140);
-        ResultSet HIST2350RS = statementHIST2350.executeQuery(queryToAddHIST2350);
-        ResultSet JAPN1010 = statementJAPN1010.executeQuery(queryToAddJAPN1010);
+        statementCS3140.executeUpdate(queryToAddCS3140);
+        statementHIST2350.executeUpdate(queryToAddHIST2350);
+        statementJAPN1010.executeUpdate(queryToAddJAPN1010);
 
-        CS3140RS.close();
-        HIST2350RS.close();
-        JAPN1010.close();
     }
 
     private void populateReviewsTable() throws SQLException {
@@ -178,15 +173,11 @@ public class DataManagerImpl implements DataManager {
         Statement statementHIST2350 = connection.createStatement();
         Statement statementJAPN1010 = connection.createStatement();
 
-        ResultSet CS3140RS1 = statementCS3140Review1.executeQuery(queryToAddCS3140Review1);
-        ResultSet CS3140RS2 = statementCS3140Review2.executeQuery(queryToAddCS3140Review2);
-        ResultSet HIST2350RS = statementHIST2350.executeQuery(queryToAddHIST2350Review);
-        ResultSet JAPN1010 = statementJAPN1010.executeQuery(queryToAddJAPN1010Review);
+        statementCS3140Review1.executeUpdate(queryToAddCS3140Review1);
+        statementCS3140Review2.executeUpdate(queryToAddCS3140Review2);
+        statementHIST2350.executeUpdate(queryToAddHIST2350Review);
+        statementJAPN1010.executeUpdate(queryToAddJAPN1010Review);
 
-        CS3140RS1.close();
-        CS3140RS2.close();
-        HIST2350RS.close();
-        JAPN1010.close();
     }
 
     private Boolean allThreeTablesExist() throws SQLException {
@@ -216,14 +207,38 @@ public class DataManagerImpl implements DataManager {
         return thereIsStudents || thereIsCourses || thereIsReviews;
     }
 
+    public void deleteTables() {
+        if(!connected) {
+            throw new IllegalStateException("Manager is not connected yet.");
+        }
+
+        try {
+            String queryToDeleteStudents = "DROP TABLE Students";
+            String queryToDeleteCourses = "DROP TABLE Courses";
+            String queryToDeleteReviews = "DROP TABLE Reviews";
+
+            Statement statementStudents = connection.createStatement();
+            Statement statementCourses = connection.createStatement();
+            Statement statementReviews = connection.createStatement();
+
+            if (!allThreeTablesExist()) {
+                throw new IllegalStateException ("The table you are trying to delete doesn't exists.");
+            }
+            else {
+                statementStudents.executeUpdate(queryToDeleteStudents);
+                statementCourses.executeUpdate(queryToDeleteCourses);
+                statementReviews.executeUpdate(queryToDeleteReviews);
+            }
+        }
+        catch(Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public static void main(String args[]) throws SQLException {
         DataManager thing = new DataManagerImpl();
         thing.connect();
-//        thing.createTables();
-//        thing.clear();
         thing.disconnect();
     }
-
-
 
 }
