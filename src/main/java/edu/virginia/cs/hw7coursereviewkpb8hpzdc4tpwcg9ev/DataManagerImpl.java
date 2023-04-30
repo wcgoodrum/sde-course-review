@@ -49,8 +49,8 @@ public class DataManagerImpl implements DataManager {
                 "(id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "'text' VARCHAR(255) NOT NULL, " + // MIGHT NEED TO INCREASE WORD COUNT
                 "rating INT NOT NULL, " +
-                "StudentID INT NOT NULL, " +
-                "CourseID INT NOT NULL, " +
+                "StudentID INTEGER NOT NULL, " +
+                "CourseID INTEGER NOT NULL, " +
                 " FOREIGN KEY (StudentID) REFERENCES Students(id) ON DELETE CASCADE," +
                 " FOREIGN KEY (CourseID) REFERENCES Courses(id) ON DELETE CASCADE)";
 
@@ -109,6 +109,80 @@ public class DataManagerImpl implements DataManager {
     }
 
     // helper functions ===============================================================
+
+    private void populateStudentsTable() throws SQLException {
+        String queryToAddJohn = "INSERT INTO Students (username, password) VALUES ('John Smith', 12345)";
+        String queryToAddEmily = "INSERT INTO Students (username, password) VALUES ('Emily Lin', 54321)";
+        String queryToAddAnna = "INSERT INTO Students (username, password) VALUES ('Anna Hugo', 13579)";
+
+        Statement statementJohn = connection.createStatement();
+        Statement statementEmily = connection.createStatement();
+        Statement statementAnna = connection.createStatement();
+
+        ResultSet johnRS = statementJohn.executeQuery(queryToAddJohn);
+        ResultSet emilyRS = statementEmily.executeQuery(queryToAddEmily);
+        ResultSet annaRS = statementAnna.executeQuery(queryToAddAnna);
+
+        johnRS.close();
+        emilyRS.close();
+        annaRS.close();
+    }
+
+    private void populateCoursesTable() throws SQLException {
+        String queryToAddCS3140 = "INSERT INTO Courses (department, catalog) VALUES ('CS', '3140')";
+        String queryToAddHIST2350 = "INSERT INTO Courses (department, catalog) VALUES ('HIST', '2350')";
+        String queryToAddJAPN1010 = "INSERT INTO Courses (department, catalog) VALUES ('JAPN', '1010')";
+
+        Statement statementCS3140 = connection.createStatement();
+        Statement statementHIST2350 = connection.createStatement();
+        Statement statementJAPN1010 = connection.createStatement();
+
+        ResultSet CS3140RS = statementCS3140.executeQuery(queryToAddCS3140);
+        ResultSet HIST2350RS = statementHIST2350.executeQuery(queryToAddHIST2350);
+        ResultSet JAPN1010 = statementJAPN1010.executeQuery(queryToAddJAPN1010);
+
+        CS3140RS.close();
+        HIST2350RS.close();
+        JAPN1010.close();
+    }
+
+    private void populateReviewsTable() throws SQLException {
+        String queryToGetEmilyID = "SELECT id FROM Students WHERE username = 'Emily Lin'";
+        Statement statementEmily = connection.createStatement();
+        ResultSet emilyRS = statementEmily.executeQuery(queryToGetEmilyID);
+        Integer emilyStudentID = emilyRS.getInt(1); // WHY IS IT NEVER USED?
+        emilyRS.close();
+
+        String queryToGetCS3140ID = "SELECT id FROM Courses WHERE department = 'CS' AND catalog = '3140'";
+        Statement statementCS3140 = connection.createStatement();
+        ResultSet cs3140RS = statementCS3140.executeQuery(queryToGetCS3140ID);
+        Integer cs3140ID = cs3140RS.getInt(1);
+        cs3140RS.close();
+
+        String queryToAddCS3140Review1 = "INSERT INTO Reviews ('text', rating, StudentID, CourseID) VALUES ('This class " +
+                "is a must take if you want to become a software engineer in the future!', 4, emilyStudentID, cs3140ID)";
+        String queryToAddCS3140Review2 = "INSERT INTO Reviews ('text', rating, StudentID, CourseID) VALUES ('Find friends " +
+                "who are reliable to work with for this class.', 3, 3, 1)";
+        String queryToAddHIST2350Review = "INSERT INTO Reviews ('text', rating, StudentID, CourseID) VALUES ('I learned " +
+                "a lot about history, highly recommend!', 5, 2, 1)";
+        String queryToAddJAPN1010Review = "INSERT INTO Reviews ('text', rating, StudentID, CourseID) VALUES ('There are " +
+                "A LOT of work in this class.', 5, 2, 2)";
+
+        Statement statementCS3140Review1 = connection.createStatement();
+        Statement statementCS3140Review2 = connection.createStatement();
+        Statement statementHIST2350 = connection.createStatement();
+        Statement statementJAPN1010 = connection.createStatement();
+
+        ResultSet CS3140RS1 = statementCS3140Review1.executeQuery(queryToAddCS3140Review1);
+        ResultSet CS3140RS2 = statementCS3140Review1.executeQuery(queryToAddCS3140Review2);
+        ResultSet HIST2350RS = statementHIST2350.executeQuery(queryToAddHIST2350Review);
+        ResultSet JAPN1010 = statementJAPN1010.executeQuery(queryToAddJAPN1010Review);
+
+        CS3140RS1.close();
+        CS3140RS2.close();
+        HIST2350RS.close();
+        JAPN1010.close();
+    }
 
     private Boolean allThreeTablesExist() throws SQLException {
         String queryToCheckIfStudentsAlreadyExist = "SELECT count (*) FROM sqlite_master " +
