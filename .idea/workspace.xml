@@ -6,8 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="53d84689-4bc5-4ad0-aeec-f4969144d07b" name="Changes" comment="added files">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/virginia/cs/hw7coursereviewkpb8hpzdc4tpwcg9ev/DataManagerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/virginia/cs/hw7coursereviewkpb8hpzdc4tpwcg9ev/DataManagerImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/virginia/cs/hw7coursereviewkpb8hpzdc4tpwcg9ev/HelloApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/virginia/cs/hw7coursereviewkpb8hpzdc4tpwcg9ev/HelloApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,6 +73,26 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="RunManager">
+    <configuration name="DataManagerImpl" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="edu.virginia.cs.hw7coursereviewkpb8hpzdc4tpwcg9ev.DataManagerImpl" />
+      <module name="HW7_Course_Review.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="edu.virginia.cs.hw7coursereviewkpb8hpzdc4tpwcg9ev.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.DataManagerImpl" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -83,7 +102,7 @@
       <option name="presentableId" value="Default" />
       <updated>1682540787046</updated>
       <workItem from="1682540788305" duration="1356000" />
-      <workItem from="1682649548807" duration="9341000" />
+      <workItem from="1682649548807" duration="9694000" />
     </task>
     <task id="LOCAL-00001" summary="added files">
       <created>1682620628203</created>
