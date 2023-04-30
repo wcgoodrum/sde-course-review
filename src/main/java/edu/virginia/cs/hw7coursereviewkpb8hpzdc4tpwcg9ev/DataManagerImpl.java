@@ -38,15 +38,15 @@ public class DataManagerImpl implements DataManager {
 
 //        routeID = 1;
         String queryToCreateStudents = "CREATE TABLE Students " +
-                "(id INT PRIMARY KEY AUTOINCREMENT, " +
+                "(id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "username VARCHAR(255) NOT NULL, " +
                 "password VARCHAR(255) NOT NULL)";
         String queryToCreateCourses = "CREATE TABLE Courses " +
-                "(id INT PRIMARY KEY AUTOINCREMENT, " +
+                "(id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "department VARCHAR(255) NOT NULL, " +
                 "catalog VARCHAR(255) NOT NULL)";
         String queryToCreateReviews = "CREATE TABLE Reviews " +
-                "(id INT PRIMARY KEY AUTOINCREMENT, " +
+                "(id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "'text' VARCHAR(255) NOT NULL, " + // MIGHT NEED TO INCREASE WORD COUNT
                 "rating INT NOT NULL, " +
                 "StudentID INT NOT NULL, " +
