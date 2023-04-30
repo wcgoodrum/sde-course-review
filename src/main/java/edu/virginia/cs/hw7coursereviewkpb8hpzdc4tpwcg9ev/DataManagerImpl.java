@@ -1,9 +1,6 @@
 package edu.virginia.cs.hw7coursereviewkpb8hpzdc4tpwcg9ev;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.List;
 
 public class DataManagerImpl implements DataManager {
@@ -13,7 +10,7 @@ public class DataManagerImpl implements DataManager {
 
     @Override
     public void connect() throws SQLException {
-
+        // i think i need to handle it when file base doesn't exist...?
         String filePath = "Reviews.sqlite3";
 
         if (connected) {
@@ -61,14 +58,14 @@ public class DataManagerImpl implements DataManager {
         Statement statementBusLines = connection.createStatement();
         Statement statementRoutes = connection.createStatement();
 
-//        if (allThreeTablesExist()) {
-//            throw new IllegalStateException("The table you are trying to create already exists.");
-//        }
-//        else {
+        if (allThreeTablesExist()) {
+            throw new IllegalStateException("The table you are trying to create already exists.");
+        }
+        else {
             statementStops.executeUpdate(queryToCreateStudents);
             statementBusLines.executeUpdate(queryToCreateCourses);
             statementRoutes.executeUpdate(queryToCreateReviews);
-//        }
+        }
     }
 
     @Override
@@ -110,5 +107,44 @@ public class DataManagerImpl implements DataManager {
         connection.close();
         connected = false;
     }
+
+    // helper functions ===============================================================
+
+    private Boolean allThreeTablesExist() throws SQLException {
+        String queryToCheckIfStudentsAlreadyExist = "SELECT count (*) FROM sqlite_master " +
+                "WHERE type='table' AND name='Students'";
+        String queryToCheckIfCoursesAlreadyExist = "SELECT count (*) FROM sqlite_master " +
+                "WHERE type='table' AND name='Courses'";
+        String queryToCheckIfReviewsAlreadyExist = "SELECT count (*) FROM sqlite_master " +
+                "WHERE type='table' AND name='Reviews'";
+
+        Statement statementStudents = connection.createStatement();
+        Statement statementCourses = connection.createStatement();
+        Statement statementReviews = connection.createStatement();
+
+        ResultSet studentsRS = statementStudents.executeQuery(queryToCheckIfStudentsAlreadyExist); // should return either 1 or 0
+        ResultSet coursesRS = statementCourses.executeQuery(queryToCheckIfCoursesAlreadyExist);
+        ResultSet reviewsRS = statementReviews.executeQuery(queryToCheckIfReviewsAlreadyExist);
+
+        boolean thereIsStudents = studentsRS.getInt(1) >= 1;
+        boolean thereIsCourses = coursesRS.getInt(1) >= 1;
+        boolean thereIsReviews = reviewsRS.getInt(1) >= 1;
+
+        studentsRS.close();
+        coursesRS.close();
+        reviewsRS.close();
+
+        return thereIsStudents || thereIsCourses || thereIsReviews;
+    }
+
+    public static void main(String args[]) throws SQLException {
+        DataManager thing = new DataManagerImpl();
+        thing.connect();
+//        thing.createTables();
+//        thing.clear();
+        thing.disconnect();
+    }
+
+
 
 }
