@@ -47,7 +47,7 @@ public class DataManagerImpl implements DataManager {
                 "catalog VARCHAR(255) NOT NULL)";
         String queryToCreateReviews = "CREATE TABLE Reviews " +
                 "(id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "'text' VARCHAR(255) NOT NULL, " + // MIGHT NEED TO INCREASE WORD COUNT
+                "'text' VARCHAR(255) NOT NULL, " +
                 "rating INT NOT NULL, " +
                 "StudentID INTEGER NOT NULL, " +
                 "CourseID INTEGER NOT NULL, " +
@@ -65,6 +65,11 @@ public class DataManagerImpl implements DataManager {
             statementStops.executeUpdate(queryToCreateStudents);
             statementBusLines.executeUpdate(queryToCreateCourses);
             statementRoutes.executeUpdate(queryToCreateReviews);
+
+            // populate tables
+            populateCoursesTable();
+            populateStudentsTable();
+            populateReviewsTable();
         }
     }
 
@@ -156,7 +161,7 @@ public class DataManagerImpl implements DataManager {
         String queryToGetCS3140ID = "SELECT id FROM Courses WHERE department = 'CS' AND catalog = '3140'";
         Statement statementCS3140 = connection.createStatement();
         ResultSet cs3140RS = statementCS3140.executeQuery(queryToGetCS3140ID);
-        Integer cs3140ID = cs3140RS.getInt(1);
+        Integer cs3140ID = cs3140RS.getInt(1); // NOT BEING USED AS WELL
         cs3140RS.close();
 
         String queryToAddCS3140Review1 = "INSERT INTO Reviews ('text', rating, StudentID, CourseID) VALUES ('This class " +
@@ -174,7 +179,7 @@ public class DataManagerImpl implements DataManager {
         Statement statementJAPN1010 = connection.createStatement();
 
         ResultSet CS3140RS1 = statementCS3140Review1.executeQuery(queryToAddCS3140Review1);
-        ResultSet CS3140RS2 = statementCS3140Review1.executeQuery(queryToAddCS3140Review2);
+        ResultSet CS3140RS2 = statementCS3140Review2.executeQuery(queryToAddCS3140Review2);
         ResultSet HIST2350RS = statementHIST2350.executeQuery(queryToAddHIST2350Review);
         ResultSet JAPN1010 = statementJAPN1010.executeQuery(queryToAddJAPN1010Review);
 
