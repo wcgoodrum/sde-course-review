@@ -4,11 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="53d84689-4bc5-4ad0-aeec-f4969144d07b" name="Changes" comment="finished adding fx ids">
+    <list default="true" id="53d84689-4bc5-4ad0-aeec-f4969144d07b" name="Changes" comment="initialized labels, text fields, and buttons">
+      <change beforePath="$PROJECT_DIR$/.gradle/7.6/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.6/executionHistory/executionHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/7.6/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.6/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/7.6/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.6/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/7.6/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.6/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/7.6/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.6/fileHashes/resourceHashesCache.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/libs/HW7_Course_Review-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/build/libs/HW7_Course_Review-1.0-SNAPSHOT.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/virginia/cs/hw7coursereviewkpb8hpzdc4tpwcg9ev/CourseReviewApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/virginia/cs/hw7coursereviewkpb8hpzdc4tpwcg9ev/CourseReviewApplication.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/edu/virginia/cs/hw7coursereviewkpb8hpzdc4tpwcg9ev/CourseReviewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/virginia/cs/hw7coursereviewkpb8hpzdc4tpwcg9ev/CourseReviewController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/edu/virginia/cs/hw7coursereviewkpb8hpzdc4tpwcg9ev/createReview.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/edu/virginia/cs/hw7coursereviewkpb8hpzdc4tpwcg9ev/createReview.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/edu/virginia/cs/hw7coursereviewkpb8hpzdc4tpwcg9ev/seeReviews.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/edu/virginia/cs/hw7coursereviewkpb8hpzdc4tpwcg9ev/seeReviews.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,6 +79,19 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RESET_MODE" value="HARD" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="a41869aa-d23f-4c1e-8cea-d046e616964f" />
+        <option name="url" value="https://github.com/uva-cs3140-sp23/hw7-coursereview-kpb8hp-zdc4tp-wcg9ev.git" />
+      </UrlAndAccount>
+    </option>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -202,7 +221,14 @@
       <option name="project" value="LOCAL" />
       <updated>1682972632572</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="initialized labels, text fields, and buttons">
+      <created>1682976488633</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1682976488633</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -237,7 +263,8 @@
     <MESSAGE value="added committed changes back" />
     <MESSAGE value="added database back I think" />
     <MESSAGE value="finished adding fx ids" />
-    <option name="LAST_COMMIT_MESSAGE" value="finished adding fx ids" />
+    <MESSAGE value="initialized labels, text fields, and buttons" />
+    <option name="LAST_COMMIT_MESSAGE" value="initialized labels, text fields, and buttons" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
