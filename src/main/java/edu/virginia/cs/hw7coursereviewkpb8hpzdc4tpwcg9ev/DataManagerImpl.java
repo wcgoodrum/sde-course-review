@@ -10,7 +10,7 @@ public class DataManagerImpl implements DataManager {
 
     @Override
     public void connect() throws SQLException {
-        // i think i need to handle it when file base doesn't exist...?
+        // I think I need to handle it when file base doesn't exist...?
         String filePath = "Reviews.sqlite3";
 
         if (connected) {
@@ -22,6 +22,7 @@ public class DataManagerImpl implements DataManager {
             connection = DriverManager.getConnection("jdbc:sqlite:" + filePath);
             connection.setAutoCommit(false);
             connected = true;
+            deleteTables();
             createTables(); // needs to debug
         }
         catch (Exception e) {
@@ -38,19 +39,19 @@ public class DataManagerImpl implements DataManager {
 
 //        routeID = 1;
         String queryToCreateStudents = "CREATE TABLE Students " +
-                "(id INT PRIMARY KEY AUTOINCREMENT, " +
+                "(id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "username VARCHAR(255) NOT NULL, " +
                 "password VARCHAR(255) NOT NULL)";
         String queryToCreateCourses = "CREATE TABLE Courses " +
-                "(id INT PRIMARY KEY AUTOINCREMENT, " +
+                "(id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "department VARCHAR(255) NOT NULL, " +
                 "catalog VARCHAR(255) NOT NULL)";
         String queryToCreateReviews = "CREATE TABLE Reviews " +
-                "(id INT PRIMARY KEY AUTOINCREMENT, " +
-                "'text' VARCHAR(255) NOT NULL, " + // MIGHT NEED TO INCREASE WORD COUNT
+                "(id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "'text' VARCHAR(255) NOT NULL, " +
                 "rating INT NOT NULL, " +
-                "StudentID INT NOT NULL, " +
-                "CourseID INT NOT NULL, " +
+                "StudentID INTEGER NOT NULL, " +
+                "CourseID INTEGER NOT NULL, " +
                 " FOREIGN KEY (StudentID) REFERENCES Students(id) ON DELETE CASCADE," +
                 " FOREIGN KEY (CourseID) REFERENCES Courses(id) ON DELETE CASCADE)";
 
@@ -65,6 +66,11 @@ public class DataManagerImpl implements DataManager {
             statementStops.executeUpdate(queryToCreateStudents);
             statementBusLines.executeUpdate(queryToCreateCourses);
             statementRoutes.executeUpdate(queryToCreateReviews);
+
+            // populate tables
+            populateCoursesTable();
+            populateStudentsTable();
+//            populateReviewsTable();
         }
     }
 
@@ -85,7 +91,7 @@ public class DataManagerImpl implements DataManager {
 
     @Override
     public void addReview(Student student, String courseName, String text, int rating) {
-
+        // TODO:
     }
 
     @Override
@@ -109,6 +115,70 @@ public class DataManagerImpl implements DataManager {
     }
 
     // helper functions ===============================================================
+
+    private void populateStudentsTable() throws SQLException {
+        String queryToAddJohn = "INSERT INTO Students (username, password) VALUES ('John Smith', 12345)";
+        String queryToAddEmily = "INSERT INTO Students (username, password) VALUES ('Emily Lin', 54321)";
+        String queryToAddAnna = "INSERT INTO Students (username, password) VALUES ('Anna Hugo', 13579)";
+
+        Statement statementJohn = connection.createStatement();
+        Statement statementEmily = connection.createStatement();
+        Statement statementAnna = connection.createStatement();
+
+        statementJohn.executeUpdate(queryToAddJohn);
+        statementEmily.executeUpdate(queryToAddEmily);
+        statementAnna.executeUpdate(queryToAddAnna);
+
+    }
+
+    private void populateCoursesTable() throws SQLException {
+        String queryToAddCS3140 = "INSERT INTO Courses (department, catalog) VALUES ('CS', '3140')";
+        String queryToAddHIST2350 = "INSERT INTO Courses (department, catalog) VALUES ('HIST', '2350')";
+        String queryToAddJAPN1010 = "INSERT INTO Courses (department, catalog) VALUES ('JAPN', '1010')";
+
+        Statement statementCS3140 = connection.createStatement();
+        Statement statementHIST2350 = connection.createStatement();
+        Statement statementJAPN1010 = connection.createStatement();
+
+        statementCS3140.executeUpdate(queryToAddCS3140);
+        statementHIST2350.executeUpdate(queryToAddHIST2350);
+        statementJAPN1010.executeUpdate(queryToAddJAPN1010);
+
+    }
+
+    private void populateReviewsTable() throws SQLException {
+        String queryToGetEmilyID = "SELECT id FROM Students WHERE username = 'Emily Lin'";
+        Statement statementEmily = connection.createStatement();
+        ResultSet emilyRS = statementEmily.executeQuery(queryToGetEmilyID);
+        Integer emilyStudentID = emilyRS.getInt(1); // WHY IS IT NEVER USED?
+        emilyRS.close();
+
+        String queryToGetCS3140ID = "SELECT id FROM Courses WHERE department = 'CS' AND catalog = '3140'";
+        Statement statementCS3140 = connection.createStatement();
+        ResultSet cs3140RS = statementCS3140.executeQuery(queryToGetCS3140ID);
+        Integer cs3140ID = cs3140RS.getInt(1); // NOT BEING USED AS WELL
+        cs3140RS.close();
+
+        String queryToAddCS3140Review1 = "INSERT INTO Reviews ('text', rating, StudentID, CourseID) VALUES ('This class " +
+                "is a must take if you want to become a software engineer in the future!', 4, emilyStudentID, cs3140ID)";
+        String queryToAddCS3140Review2 = "INSERT INTO Reviews ('text', rating, StudentID, CourseID) VALUES ('Find friends " +
+                "who are reliable to work with for this class.', 3, 3, 1)";
+        String queryToAddHIST2350Review = "INSERT INTO Reviews ('text', rating, StudentID, CourseID) VALUES ('I learned " +
+                "a lot about history, highly recommend!', 5, 2, 1)";
+        String queryToAddJAPN1010Review = "INSERT INTO Reviews ('text', rating, StudentID, CourseID) VALUES ('There are " +
+                "A LOT of work in this class.', 5, 2, 2)";
+
+        Statement statementCS3140Review1 = connection.createStatement();
+        Statement statementCS3140Review2 = connection.createStatement();
+        Statement statementHIST2350 = connection.createStatement();
+        Statement statementJAPN1010 = connection.createStatement();
+
+        statementCS3140Review1.executeUpdate(queryToAddCS3140Review1);
+        statementCS3140Review2.executeUpdate(queryToAddCS3140Review2);
+        statementHIST2350.executeUpdate(queryToAddHIST2350Review);
+        statementJAPN1010.executeUpdate(queryToAddJAPN1010Review);
+
+    }
 
     private Boolean allThreeTablesExist() throws SQLException {
         String queryToCheckIfStudentsAlreadyExist = "SELECT count (*) FROM sqlite_master " +
@@ -137,14 +207,38 @@ public class DataManagerImpl implements DataManager {
         return thereIsStudents || thereIsCourses || thereIsReviews;
     }
 
+    public void deleteTables() {
+        if(!connected) {
+            throw new IllegalStateException("Manager is not connected yet.");
+        }
+
+        try {
+            String queryToDeleteStudents = "DROP TABLE Students";
+            String queryToDeleteCourses = "DROP TABLE Courses";
+            String queryToDeleteReviews = "DROP TABLE Reviews";
+
+            Statement statementStudents = connection.createStatement();
+            Statement statementCourses = connection.createStatement();
+            Statement statementReviews = connection.createStatement();
+
+            if (!allThreeTablesExist()) {
+                throw new IllegalStateException ("The table you are trying to delete doesn't exists.");
+            }
+            else {
+                statementStudents.executeUpdate(queryToDeleteStudents);
+                statementCourses.executeUpdate(queryToDeleteCourses);
+                statementReviews.executeUpdate(queryToDeleteReviews);
+            }
+        }
+        catch(Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public static void main(String args[]) throws SQLException {
         DataManager thing = new DataManagerImpl();
         thing.connect();
-//        thing.createTables();
-//        thing.clear();
         thing.disconnect();
     }
-
-
 
 }
