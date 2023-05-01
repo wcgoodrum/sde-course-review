@@ -14,12 +14,14 @@ public class CourseReviewController {
     public TextField crCourseText, crRatingText, crMessageText, lUsernameText, lPasswordText, lConfirmText, srSearchBox;
     @FXML
     public Label crErrorLabel, lConfirmLabel, lErrorLabel, srCourseName, srReviewsLabel, srErrorLabel, srReviewLabel1, srReviewLabel2, srReviewLabel3, srReviewLabel4, srReviewLabel5, srReviewPageLabel;
+    private DataManager dataManager = new DataManagerImpl();
     @FXML
     public void initialize(){
         resetLogin();
     }
     @FXML
     public void switchToLogin(){
+        student = null;
         //TODO
     }
     @FXML
@@ -36,8 +38,33 @@ public class CourseReviewController {
     }
     @FXML
     public void login(){
-        //TODO check stuff
-        switchToMainMenu();
+        try {
+            if(lConfirmText.isDisable()) {
+                student = dataManager.login(lUsernameText.getText(), lPasswordText.getText());
+            }
+            else{
+                student = dataManager.createNewUser(lUsernameText.getText(), lPasswordText.getText(), lConfirmText.getText());
+            }
+            switchToMainMenu();
+        }
+        catch(IllegalArgumentException e){
+            lErrorLabel.setText(e.getMessage());
+        }
+    }
+    @FXML
+    public void newUser(){
+        resetNode(lUsernameText, false);
+        resetNode(lPasswordText, false);
+        if(lConfirmText.isDisable()) {
+            resetNode(lConfirmText, false);
+            resetNode(lConfirmLabel, false);
+            lNewUserButton.setText("Have an account");
+        }
+        else{
+            resetNode(lConfirmText, true);
+            resetNode(lConfirmLabel, true);
+            lNewUserButton.setText("New User");
+        }
     }
     public void resetLogin(){
         resetNode(lLoginButton, false);
@@ -47,6 +74,8 @@ public class CourseReviewController {
         resetNode(lConfirmText,true);
         resetNode(lConfirmLabel,true);
         resetNode(lErrorLabel,true);
+        lErrorLabel.setText("");
+        lNewUserButton.setText("New User");
     }
 
     public void resetCreateReview(){
@@ -56,6 +85,7 @@ public class CourseReviewController {
         resetNode(crRatingText, false);
         resetNode(crMessageText, false);
         resetNode(crErrorLabel, true);
+        crErrorLabel.setText("");
     }
 
     public void resetSeeReviews(){
@@ -72,6 +102,7 @@ public class CourseReviewController {
         resetNode(srReviewPageLabel, true);
         resetNode(srReviewBackButton, true);
         resetNode(srReviewForwardButton, true);
+        srErrorLabel.setText("");
     }
 
     public void resetNode(Node node, boolean value){
