@@ -6,7 +6,7 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.virginia.cs.hw7coursereviewkpb8hpzdc4tpwcg9ev.CourseReviewController">
    <children>
-      <Button layoutX="466.0" layoutY="14.0" mnemonicParsing="false" text="Back to Main Menu" />
+      <Button fx:id="crMainMenuBotton" layoutX="466.0" layoutY="14.0" mnemonicParsing="false" text="Back to Main Menu" />
       <VBox layoutX="1.0" layoutY="55.0" prefHeight="330.0" prefWidth="600.0">
          <children>
             <Label text="Coruse">
@@ -14,24 +14,24 @@
                   <Font size="15.0" />
                </font>
             </Label>
-            <TextField />
+            <TextField fx:id="crCourseText" />
             <Label prefHeight="35.0" />
             <Label text="Rating (1-5) stars ">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <TextField />
+            <TextField fx:id="crRatingText" />
             <Label prefHeight="35.0" />
             <Label text="Message">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <TextField prefHeight="50.0" prefWidth="600.0" />
+            <TextField fx:id="crMessageText" prefHeight="50.0" prefWidth="600.0" />
             <Label prefHeight="35.0" prefWidth="0.0" />
-            <Button mnemonicParsing="false" text="Create Review" />
-            <Label prefHeight="35.0" prefWidth="60.0" text="Error Label" />
+            <Button fx:id="crCreateButton" mnemonicParsing="false" text="Create Review" />
+            <Label fx:id="crErrorLabel" prefHeight="35.0" prefWidth="60.0" text="Error Label" />
          </children></VBox>
    </children>
 </AnchorPane>
