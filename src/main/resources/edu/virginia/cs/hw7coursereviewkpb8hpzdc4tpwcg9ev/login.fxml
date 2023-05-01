@@ -11,7 +11,7 @@
                 <TextField fx:id="lUsernameText" />
                 <Label text="Password" />
                 <TextField fx:id="lPasswordText" />
-                <Label fx:id="lconfirmLabel" text="Confirm Password" />
+                <Label fx:id="lConfirmLabel" text="Confirm Password" />
                 <TextField fx:id="lConfirmText" />
                 <Label />
                 <Button fx:id="lLoginButton" mnemonicParsing="false" text="Log in" />

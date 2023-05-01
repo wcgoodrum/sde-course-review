@@ -6,7 +6,7 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.virginia.cs.hw7coursereviewkpb8hpzdc4tpwcg9ev.CourseReviewController">
     <children>
-        <Button fx:id="crMainMenuBotton" layoutX="466.0" layoutY="14.0" mnemonicParsing="false" text="Back to Main Menu" />
+        <Button fx:id="crMainMenuButton" layoutX="466.0" layoutY="14.0" mnemonicParsing="false" text="Back to Main Menu" />
         <VBox layoutX="1.0" layoutY="55.0" prefHeight="330.0" prefWidth="600.0">
             <children>
                 <Label text="Coruse">
@@ -35,4 +35,3 @@
             </children></VBox>
     </children>
 </AnchorPane>
-
