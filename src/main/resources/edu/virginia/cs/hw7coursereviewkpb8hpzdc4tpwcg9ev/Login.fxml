@@ -1,14 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="edu.virginia.cs.hw7coursereviewkpb8hpzdc4tpwcg9ev.CourseReviewController"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.virginia.cs.hw7coursereviewkpb8hpzdc4tpwcg9ev.CourseReviewController">
+   <children>
+      <VBox layoutX="155.0" layoutY="86.0" prefHeight="227.0" prefWidth="290.0">
+         <children>
+            <Label text="Username" />
+            <TextField />
+            <Label text="Password" />
+            <TextField />
+            <Label text="Confirm Password" />
+            <TextField />
+            <Label />
+            <Button mnemonicParsing="false" text="Log in" />
+            <Label prefHeight="41.0" prefWidth="340.0" text="Error message" />
+            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="New User" />
+         </children>
+      </VBox>
+   </children>
 </AnchorPane>
