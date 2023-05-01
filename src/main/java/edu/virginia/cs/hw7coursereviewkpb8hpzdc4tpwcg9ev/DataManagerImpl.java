@@ -22,8 +22,8 @@ public class DataManagerImpl implements DataManager {
             connection = DriverManager.getConnection("jdbc:sqlite:" + filePath);
             connection.setAutoCommit(false);
             connected = true;
-            deleteTables();
-            createTables(); // needs to debug
+            //deleteTables();
+            //createTables(); // needs to debug
         }
         catch (Exception e) {
             throw new RuntimeException(e);
@@ -238,6 +238,7 @@ public class DataManagerImpl implements DataManager {
     public static void main(String args[]) throws SQLException {
         DataManager thing = new DataManagerImpl();
         thing.connect();
+        //thing.createTables();
         thing.disconnect();
     }
 
