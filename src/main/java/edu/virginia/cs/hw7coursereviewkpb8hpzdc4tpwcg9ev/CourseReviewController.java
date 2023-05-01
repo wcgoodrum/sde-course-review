@@ -18,6 +18,27 @@ public class CourseReviewController {
     public void initialize(){
         resetLogin();
     }
+    @FXML
+    public void switchToLogin(){
+        //TODO
+    }
+    @FXML
+    public void switchToMainMenu(){
+        //TODO
+    }
+    @FXML
+    public void switchToSeeReviews(){
+        //TODO
+    }
+    @FXML
+    public void switchToCreateReview(){
+        //TODO
+    }
+    @FXML
+    public void login(){
+        //TODO check stuff
+        switchToMainMenu();
+    }
     public void resetLogin(){
         resetNode(lLoginButton, false);
         resetNode(lNewUserButton, false);

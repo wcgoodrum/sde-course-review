@@ -7,10 +7,10 @@
     <children>
         <HBox alignment="CENTER" layoutX="76.0" layoutY="40.0" prefHeight="320.0" prefWidth="448.0">
             <children>
-                <Button fx:id="mmCreateReviewButton" mnemonicParsing="false" prefHeight="150.0" prefWidth="150.0" text="Create Review" />
+                <Button fx:id="mmCreateReviewButton" mnemonicParsing="false" onAction="#switchToCreateReview" prefHeight="150.0" prefWidth="150.0" text="Create Review" />
                 <Label prefHeight="26.0" prefWidth="47.0" />
-                <Button fx:id="mmSeeReviewsButton" mnemonicParsing="false" prefHeight="150.0" prefWidth="150.0" text="See Reviews" />
+                <Button fx:id="mmSeeReviewsButton" mnemonicParsing="false" onAction="#switchToSeeReviews" prefHeight="150.0" prefWidth="150.0" text="See Reviews" />
             </children></HBox>
-        <Button fx:id="mmLogout" layoutX="531.0" layoutY="14.0" mnemonicParsing="false" text="Logout" />
+        <Button fx:id="mmLogout" layoutX="531.0" layoutY="14.0" mnemonicParsing="false" onAction="#switchToLogin" text="Logout" />
     </children>
 </AnchorPane>
