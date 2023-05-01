@@ -1,5 +1,6 @@
 package edu.virginia.cs.hw7coursereviewkpb8hpzdc4tpwcg9ev;
 
+import java.io.File;
 import java.sql.*;
 import java.util.List;
 
@@ -9,8 +10,14 @@ public class DataManagerImpl implements DataManager {
     private boolean connected = false;
 
     @Override
-    public void connect() throws SQLException {
+    public void setUp() throws SQLException {
         // I think I need to handle it when file base doesn't exist...?
+
+        File file = new File ("Reviews.sqlite3");
+        if (file.exists()) {
+            System.out.println("Reviews.sqlite3 is in the root directory!");
+        }
+
         String filePath = "Reviews.sqlite3";
 
         if (connected) {
@@ -237,7 +244,7 @@ public class DataManagerImpl implements DataManager {
 
     public static void main(String args[]) throws SQLException {
         DataManager thing = new DataManagerImpl();
-        thing.connect();
+        thing.setUp();
         thing.disconnect();
     }
 

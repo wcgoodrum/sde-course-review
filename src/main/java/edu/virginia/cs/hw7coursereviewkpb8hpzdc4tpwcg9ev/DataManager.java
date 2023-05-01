@@ -9,7 +9,7 @@ public interface DataManager {
      *
      * @throws IllegalStateException if the Manager is already connected
      */
-    void connect() throws SQLException;
+    void setUp() throws SQLException;
 
     /**
      * Creates the tables Students, Courses, and Reviews in the database. Throws
