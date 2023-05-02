@@ -6,8 +6,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
+import java.util.List;
+
 public class CourseReviewController {
     private Student student;
+    private int pageNum;
+    private List<Review> reviews;
     @FXML
     public Button crMainMenuButton, crCreateButton, lLoginButton, lNewUserButton, mmLogout, mmCreateReviewButton, mmSeeReviewsButton, srMainMenuButton, srSearchButton, srReviewBackButton, srReviewForwardButton;
     @FXML
@@ -22,6 +26,7 @@ public class CourseReviewController {
     @FXML
     public void switchToLogin(){
         student = null;
+        resetLogin();
         //TODO
     }
     @FXML
@@ -30,10 +35,12 @@ public class CourseReviewController {
     }
     @FXML
     public void switchToSeeReviews(){
+        resetSeeReviews();
         //TODO
     }
     @FXML
     public void switchToCreateReview(){
+        resetCreateReview();
         //TODO
     }
     @FXML
@@ -48,6 +55,7 @@ public class CourseReviewController {
             switchToMainMenu();
         }
         catch(IllegalArgumentException e){
+            resetNode(lErrorLabel, false);
             lErrorLabel.setText(e.getMessage());
         }
     }
@@ -66,6 +74,89 @@ public class CourseReviewController {
             lNewUserButton.setText("New User");
         }
     }
+    @FXML
+    public void createReview(){
+        try{
+            dataManager.addReview(student, crCourseText.getText(), crMessageText.getText(), Integer.parseInt(crRatingText.getText().replace(" ","")));
+        }
+        catch (NumberFormatException e){
+            resetCreateReview();
+            resetNode(crErrorLabel, false);
+            crErrorLabel.setText("Rating has to be an integer Between 1 and 5");
+        }
+        catch (IllegalArgumentException e){
+            resetCreateReview();
+            resetNode(crErrorLabel, false);
+            crErrorLabel.setText(e.getMessage());
+        }
+    }
+    @FXML
+    public void Search(){
+        resetSeeReviews();
+        try{
+            reviews = dataManager.getReviews(srSearchBox.getText());
+            resetNode(srReviewsLabel, false);
+            resetNode(srCourseName, false);
+            resetNode(srErrorLabel, true);
+            resetNode(srReviewLabel1, false);
+            srReviewLabel1.setText(reviews.get(0).getText());
+            if(reviews.size() > 1) {
+                resetNode(srReviewLabel2, false);
+                srReviewLabel2.setText(reviews.get(1).getText());
+                }
+            if(reviews.size() > 2) {
+                resetNode(srReviewLabel3, false);
+                srReviewLabel3.setText(reviews.get(2).getText());
+            }
+            if(reviews.size() > 3)  {
+                resetNode(srReviewLabel4, false);
+                srReviewLabel4.setText(reviews.get(3).getText());
+            }
+            if(reviews.size() > 4) {
+                resetNode(srReviewLabel5, false);
+                srReviewLabel5.setText(reviews.get(4).getText());
+            }
+            resetNode(srReviewPageLabel, false);
+            resetNode(srReviewBackButton, false);
+            srReviewBackButton.setDisable(true);
+            resetNode(srReviewForwardButton, false);
+            if(reviews.size() <= 5){
+                srReviewForwardButton.setDisable(true);
+            }
+        }
+        catch (IllegalArgumentException e){
+            resetNode(srErrorLabel, false);
+            crErrorLabel.setText(e.getMessage());
+        }
+        resetNode(srSearchBox, true);
+    }
+    @FXML
+    public void backButton(){
+        pageNum--;
+        srReviewPageLabel.setText(String.valueOf(pageNum));
+        srReviewLabel1.setText(reviews.get(pageNum*5-5).getText());
+        srReviewLabel2.setText(reviews.get(pageNum*5-4).getText());
+        srReviewLabel3.setText(reviews.get(pageNum*5-3).getText());
+        srReviewLabel4.setText(reviews.get(pageNum*5-2).getText());
+        srReviewLabel5.setText(reviews.get(pageNum*5-1).getText());
+        if(pageNum == 1){srReviewBackButton.setDisable(true);}
+        srReviewForwardButton.setDisable(false);
+    }
+
+    @FXML
+    public void forwardButton(){
+        pageNum++;
+        srReviewPageLabel.setText(String.valueOf(pageNum));
+        srReviewLabel1.setText(reviews.get(pageNum*5-5).getText());
+        if(reviews.size()>pageNum*5-4)srReviewLabel2.setText(reviews.get(pageNum*5-4).getText());
+        if(reviews.size()>pageNum*5-3)srReviewLabel3.setText(reviews.get(pageNum*5-3).getText());
+        if(reviews.size()>pageNum*5-2)srReviewLabel4.setText(reviews.get(pageNum*5-2).getText());
+        if(reviews.size()>pageNum*5-1)srReviewLabel5.setText(reviews.get(pageNum*5-1).getText());
+        if(reviews.size() < pageNum*5+1) srReviewForwardButton.setDisable(true);
+        srReviewBackButton.setDisable(false);
+    }
+
+    //////////////////////Helper Functions///////////////////////////
     public void resetLogin(){
         resetNode(lLoginButton, false);
         resetNode(lNewUserButton, false);
@@ -103,6 +194,8 @@ public class CourseReviewController {
         resetNode(srReviewBackButton, true);
         resetNode(srReviewForwardButton, true);
         srErrorLabel.setText("");
+        pageNum = 1;
+        reviews = null;
     }
 
     public void resetNode(Node node, boolean value){
