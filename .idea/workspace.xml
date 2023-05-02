@@ -5,17 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="53d84689-4bc5-4ad0-aeec-f4969144d07b" name="Changes" comment="added files">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/edu/virginia/cs/hw7coursereviewkpb8hpzdc4tpwcg9ev/CommandLineCourseReview.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/edu/virginia/cs/hw7coursereviewkpb8hpzdc4tpwcg9ev/Course.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/edu/virginia/cs/hw7coursereviewkpb8hpzdc4tpwcg9ev/DataManager.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/edu/virginia/cs/hw7coursereviewkpb8hpzdc4tpwcg9ev/DataManagerImpl.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/edu/virginia/cs/hw7coursereviewkpb8hpzdc4tpwcg9ev/HelloApplication.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/edu/virginia/cs/hw7coursereviewkpb8hpzdc4tpwcg9ev/HelloController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/edu/virginia/cs/hw7coursereviewkpb8hpzdc4tpwcg9ev/Review.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/edu/virginia/cs/hw7coursereviewkpb8hpzdc4tpwcg9ev/Student.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/module-info.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/edu/virginia/cs/hw7coursereviewkpb8hpzdc4tpwcg9ev/DataManagerImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/edu/virginia/cs/hw7coursereviewkpb8hpzdc4tpwcg9ev/DataManagerImpl.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/edu/virginia/cs/hw7coursereviewkpb8hpzdc4tpwcg9ev/DataManagerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/virginia/cs/hw7coursereviewkpb8hpzdc4tpwcg9ev/DataManagerImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -108,7 +100,7 @@
 }</component>
   <component name="RunManager">
     <configuration name="DataManagerImpl" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="ALTERNATIVE_JRE_PATH" value="corretto-17" />
+      <option name="ALTERNATIVE_JRE_PATH" value="corretto-19" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="MAIN_CLASS_NAME" value="edu.virginia.cs.hw7coursereviewkpb8hpzdc4tpwcg9ev.DataManagerImpl" />
       <module name="HW7_Course_Review.main" />
@@ -138,7 +130,7 @@
       <updated>1682540787046</updated>
       <workItem from="1682540788305" duration="1356000" />
       <workItem from="1682649548807" duration="18426000" />
-      <workItem from="1682997296758" duration="368000" />
+      <workItem from="1682997296758" duration="1129000" />
     </task>
     <task id="LOCAL-00001" summary="added files">
       <created>1682620628203</created>

@@ -176,13 +176,13 @@ public class DataManagerImpl implements DataManager {
         Integer cs3140ID = cs3140RS.getInt(1);
         cs3140RS.close();
 
-        String queryToGetHIST2350ID = "SELECT id FROM Courses WHERE department = 'CS' AND catalog = '3140'";
+        String queryToGetHIST2350ID = "SELECT id FROM Courses WHERE department = 'HIST' AND catalog = '2350'";
         Statement statementHIST2350 = connection.createStatement();
         ResultSet hist2350RS = statementHIST2350.executeQuery(queryToGetHIST2350ID);
         Integer hist2350ID = hist2350RS.getInt(1);
         hist2350RS.close();
 
-        String queryToGetJAPN1010ID = "SELECT id FROM Courses WHERE department = 'CS' AND catalog = '3140'";
+        String queryToGetJAPN1010ID = "SELECT id FROM Courses WHERE department = 'JAPN' AND catalog = '1010'";
         Statement statementJAPN1010 = connection.createStatement();
         ResultSet japn1010RS = statementJAPN1010.executeQuery(queryToGetJAPN1010ID);
         Integer japn1010ID = japn1010RS.getInt(1);
@@ -275,7 +275,7 @@ public class DataManagerImpl implements DataManager {
         }
     }
 
-    public static void main(String[] args) throws SQLException {
+    public static void main(String args[]) throws SQLException {
         DataManager thing = new DataManagerImpl();
         thing.setUp();
         thing.disconnect();
