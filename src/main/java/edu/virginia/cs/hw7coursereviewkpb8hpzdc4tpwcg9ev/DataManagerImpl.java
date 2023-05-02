@@ -54,7 +54,7 @@ public class DataManagerImpl implements DataManager {
         String queryToCreateReviews = "CREATE TABLE Reviews " +
                 "(id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "'text' VARCHAR(255) NOT NULL, " +
-                "rating INT NOT NULL, " +
+                "rating INTEGER NOT NULL, " +
                 "StudentID INTEGER NOT NULL, " +
                 "CourseID INTEGER NOT NULL, " +
                 " FOREIGN KEY (StudentID) REFERENCES Students(id) ON DELETE CASCADE," +
@@ -164,10 +164,10 @@ public class DataManagerImpl implements DataManager {
         Integer johnStudentID = johnRS.getInt(1);
         johnRS.close();
 
-        String queryToGetAnnaID = "SELECT id FROM Students WHERE username = 'Anna Hugo  '";
+        String queryToGetAnnaID = "SELECT id FROM Students WHERE username = 'Anna Hugo'";
         Statement statementAnna = connection.createStatement();
         ResultSet annaRS = statementAnna.executeQuery(queryToGetAnnaID);
-        Integer annaStudentID = annaRS.getInt(1); // WHY IS IT NEVER USED?
+        Integer annaStudentID = annaRS.getInt(1);
         annaRS.close();
 
         String queryToGetCS3140ID = "SELECT id FROM Courses WHERE department = 'CS' AND catalog = '3140'";
@@ -189,23 +189,23 @@ public class DataManagerImpl implements DataManager {
         japn1010RS.close();
 
         String queryToAddCS3140Review1 = String.format("""
-                INSERT INTO Reviews ('text', rating, studentID, CourseID)
-                VALUES (%s, %d, %d, %d);
+                INSERT INTO Reviews ('text', rating, StudentID, CourseID)
+                VALUES ("%s", %d, %d, %d);
                 """, "Take this class if you want to become a software engineer.",
                 4, emilyStudentID, cs3140ID);
         String queryToAddCS3140Review2 = String.format("""
                 INSERT INTO Reviews ('text', rating, StudentID, CourseID)
-                VALUES (%s, %d, %d, %d);
+                VALUES ("%s", %d, %d, %d);
                 """, "There are many group projects in this class!",
                 3, johnStudentID, cs3140ID);
         String queryToAddHIST2350Review = String.format("""
                 INSERT INTO Reviews ('text', rating, StudentID, CourseID)
-                VALUES (%s, %d, %d, %d);
+                VALUES ("%s", %d, %d, %d);
                 """, "I learned a lot about history. Highly recommend!",
                 5, emilyStudentID, hist2350ID);
         String queryToAddJAPN1010Review = String.format("""
                 INSERT INTO Reviews ('text', rating, StudentID, CourseID)
-                VALUES (%s, %d, %d, %d);
+                VALUES ("%s", %d, %d, %d);
                 """, "There are homeworks due almost every day in this class.",
                 3, annaStudentID, japn1010ID);
 

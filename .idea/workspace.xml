@@ -6,7 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="53d84689-4bc5-4ad0-aeec-f4969144d07b" name="Changes" comment="added files">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Reviews.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reviews.sqlite3-journal" beforeDir="false" afterPath="$PROJECT_DIR$/Reviews.sqlite3-journal" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/edu/virginia/cs/hw7coursereviewkpb8hpzdc4tpwcg9ev/DataManagerImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/edu/virginia/cs/hw7coursereviewkpb8hpzdc4tpwcg9ev/DataManagerImpl.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/edu/virginia/cs/hw7coursereviewkpb8hpzdc4tpwcg9ev/DataManagerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/virginia/cs/hw7coursereviewkpb8hpzdc4tpwcg9ev/DataManagerImpl.java" afterDir="false" />
     </list>
@@ -130,7 +130,7 @@
       <updated>1682540787046</updated>
       <workItem from="1682540788305" duration="1356000" />
       <workItem from="1682649548807" duration="18426000" />
-      <workItem from="1682997296758" duration="1129000" />
+      <workItem from="1682997296758" duration="2130000" />
     </task>
     <task id="LOCAL-00001" summary="added files">
       <created>1682620628203</created>
