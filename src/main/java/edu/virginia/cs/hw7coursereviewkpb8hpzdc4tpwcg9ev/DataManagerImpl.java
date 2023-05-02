@@ -1,5 +1,6 @@
 package edu.virginia.cs.hw7coursereviewkpb8hpzdc4tpwcg9ev;
 
+import java.io.File;
 import java.sql.*;
 import java.util.List;
 
@@ -9,8 +10,13 @@ public class DataManagerImpl implements DataManager {
     private boolean connected = false;
 
     @Override
-    public void connect() throws SQLException {
+    public void setUp() throws SQLException {
         // I think I need to handle it when file base doesn't exist...?
+        File file = new File ("Reviews.sqlite3");
+        if (file.exists()) {
+            System.out.println("Reviews.sqlite3 is in the root directory!");
+        }
+
         String filePath = "Reviews.sqlite3";
 
         if (connected) {
@@ -22,8 +28,8 @@ public class DataManagerImpl implements DataManager {
             connection = DriverManager.getConnection("jdbc:sqlite:" + filePath);
             connection.setAutoCommit(false);
             connected = true;
-            //deleteTables();
-            //createTables(); // needs to debug
+            deleteTables();
+            createTables(); // needs to debug
         }
         catch (Exception e) {
             throw new RuntimeException(e);
@@ -37,7 +43,6 @@ public class DataManagerImpl implements DataManager {
             throw new IllegalStateException("Manager is not connected yet.");
         }
 
-//        routeID = 1;
         String queryToCreateStudents = "CREATE TABLE Students " +
                 "(id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "username VARCHAR(255) NOT NULL, " +
@@ -49,7 +54,7 @@ public class DataManagerImpl implements DataManager {
         String queryToCreateReviews = "CREATE TABLE Reviews " +
                 "(id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "'text' VARCHAR(255) NOT NULL, " +
-                "rating INT NOT NULL, " +
+                "rating INTEGER NOT NULL, " +
                 "StudentID INTEGER NOT NULL, " +
                 "CourseID INTEGER NOT NULL, " +
                 " FOREIGN KEY (StudentID) REFERENCES Students(id) ON DELETE CASCADE," +
@@ -70,7 +75,7 @@ public class DataManagerImpl implements DataManager {
             // populate tables
             populateCoursesTable();
             populateStudentsTable();
-//            populateReviewsTable();
+            populateReviewsTable();
         }
     }
 
@@ -150,34 +155,69 @@ public class DataManagerImpl implements DataManager {
         String queryToGetEmilyID = "SELECT id FROM Students WHERE username = 'Emily Lin'";
         Statement statementEmily = connection.createStatement();
         ResultSet emilyRS = statementEmily.executeQuery(queryToGetEmilyID);
-        Integer emilyStudentID = emilyRS.getInt(1); // WHY IS IT NEVER USED?
+        Integer emilyStudentID = emilyRS.getInt(1);
         emilyRS.close();
+
+        String queryToGetJohnID = "SELECT id FROM Students WHERE username = 'John Smith'";
+        Statement statementJohn = connection.createStatement();
+        ResultSet johnRS = statementJohn.executeQuery(queryToGetJohnID);
+        Integer johnStudentID = johnRS.getInt(1);
+        johnRS.close();
+
+        String queryToGetAnnaID = "SELECT id FROM Students WHERE username = 'Anna Hugo'";
+        Statement statementAnna = connection.createStatement();
+        ResultSet annaRS = statementAnna.executeQuery(queryToGetAnnaID);
+        Integer annaStudentID = annaRS.getInt(1);
+        annaRS.close();
 
         String queryToGetCS3140ID = "SELECT id FROM Courses WHERE department = 'CS' AND catalog = '3140'";
         Statement statementCS3140 = connection.createStatement();
         ResultSet cs3140RS = statementCS3140.executeQuery(queryToGetCS3140ID);
-        Integer cs3140ID = cs3140RS.getInt(1); // NOT BEING USED AS WELL
+        Integer cs3140ID = cs3140RS.getInt(1);
         cs3140RS.close();
 
-        String queryToAddCS3140Review1 = "INSERT INTO Reviews ('text', rating, StudentID, CourseID) VALUES ('This class " +
-                "is a must take if you want to become a software engineer in the future!', 4, emilyStudentID, cs3140ID)";
-        String queryToAddCS3140Review2 = "INSERT INTO Reviews ('text', rating, StudentID, CourseID) VALUES ('Find friends " +
-                "who are reliable to work with for this class.', 3, 3, 1)";
-        String queryToAddHIST2350Review = "INSERT INTO Reviews ('text', rating, StudentID, CourseID) VALUES ('I learned " +
-                "a lot about history, highly recommend!', 5, 2, 1)";
-        String queryToAddJAPN1010Review = "INSERT INTO Reviews ('text', rating, StudentID, CourseID) VALUES ('There are " +
-                "A LOT of work in this class.', 5, 2, 2)";
+        String queryToGetHIST2350ID = "SELECT id FROM Courses WHERE department = 'HIST' AND catalog = '2350'";
+        Statement statementHIST2350 = connection.createStatement();
+        ResultSet hist2350RS = statementHIST2350.executeQuery(queryToGetHIST2350ID);
+        Integer hist2350ID = hist2350RS.getInt(1);
+        hist2350RS.close();
+
+        String queryToGetJAPN1010ID = "SELECT id FROM Courses WHERE department = 'JAPN' AND catalog = '1010'";
+        Statement statementJAPN1010 = connection.createStatement();
+        ResultSet japn1010RS = statementJAPN1010.executeQuery(queryToGetJAPN1010ID);
+        Integer japn1010ID = japn1010RS.getInt(1);
+        japn1010RS.close();
+
+        String queryToAddCS3140Review1 = String.format("""
+                INSERT INTO Reviews ('text', rating, StudentID, CourseID)
+                VALUES ("%s", %d, %d, %d);
+                """, "Take this class if you want to become a software engineer.",
+                4, emilyStudentID, cs3140ID);
+        String queryToAddCS3140Review2 = String.format("""
+                INSERT INTO Reviews ('text', rating, StudentID, CourseID)
+                VALUES ("%s", %d, %d, %d);
+                """, "There are many group projects in this class!",
+                3, johnStudentID, cs3140ID);
+        String queryToAddHIST2350Review = String.format("""
+                INSERT INTO Reviews ('text', rating, StudentID, CourseID)
+                VALUES ("%s", %d, %d, %d);
+                """, "I learned a lot about history. Highly recommend!",
+                5, emilyStudentID, hist2350ID);
+        String queryToAddJAPN1010Review = String.format("""
+                INSERT INTO Reviews ('text', rating, StudentID, CourseID)
+                VALUES ("%s", %d, %d, %d);
+                """, "There are homeworks due almost every day in this class.",
+                3, annaStudentID, japn1010ID);
 
         Statement statementCS3140Review1 = connection.createStatement();
         Statement statementCS3140Review2 = connection.createStatement();
-        Statement statementHIST2350 = connection.createStatement();
-        Statement statementJAPN1010 = connection.createStatement();
+        Statement statementHIST2350Review = connection.createStatement();
+        Statement statementJAPN1010Review = connection.createStatement();
 
         statementCS3140Review1.executeUpdate(queryToAddCS3140Review1);
         statementCS3140Review2.executeUpdate(queryToAddCS3140Review2);
-        statementHIST2350.executeUpdate(queryToAddHIST2350Review);
-        statementJAPN1010.executeUpdate(queryToAddJAPN1010Review);
-
+        statementHIST2350Review.executeUpdate(queryToAddHIST2350Review);
+        statementJAPN1010Review.executeUpdate(queryToAddJAPN1010Review);
     }
 
     private Boolean allThreeTablesExist() throws SQLException {
@@ -237,8 +277,7 @@ public class DataManagerImpl implements DataManager {
 
     public static void main(String args[]) throws SQLException {
         DataManager thing = new DataManagerImpl();
-        thing.connect();
-        //thing.createTables();
+        thing.setUp();
         thing.disconnect();
     }
 
