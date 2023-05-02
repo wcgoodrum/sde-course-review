@@ -12,14 +12,14 @@
                 <HBox prefHeight="14.0" prefWidth="527.0">
                     <children>
                         <TextField fx:id="srSearchBox" onKeyPressed="#enterKey" prefHeight="32.0" prefWidth="546.0" />
-                        <Button fx:id="srSearchButton" mnemonicParsing="false" onAction="#Search" text="Search" />
+                        <Button fx:id="srSearchButton" mnemonicParsing="false" onAction="#search" text="Search" />
                     </children></HBox>
                 <Label fx:id="srCourseName" disable="true" text="CourseName" visible="false">
                     <font>
                         <Font size="30.0" />
                     </font>
                 </Label>
-                <Label fx:id="srErrorLabel" disable="true" text="Rating/Error Message" visible="false" />
+                <Label fx:id="srErrorLabel" disable="true" prefHeight="17.0" prefWidth="600.0" text="Rating/Error Message" visible="false" />
                 <Label fx:id="srReviewsLabel" disable="true" prefHeight="22.0" prefWidth="600.0" text="Reviews" visible="false">
                     <font>
                         <Font size="15.0" />

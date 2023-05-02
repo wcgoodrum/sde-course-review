@@ -1,6 +1,5 @@
 package edu.virginia.cs.hw7coursereviewkpb8hpzdc4tpwcg9ev;
 
-import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -71,13 +70,13 @@ public class CourseReviewController {
             else{
                 student = dataManager.createNewUser(lUsernameText.getText(), lPasswordText.getText(), lConfirmText.getText());
             }
-            if(student == null){
-                resetNode(lErrorLabel, false);
-                lErrorLabel.setText("Incorrect Password");
-            }
-            else {
+//            if(student == null){
+//                resetNode(lErrorLabel, false);
+//                lErrorLabel.setText("Incorrect Password");
+//            }
+//            else {
                 switchToMainMenu(event);
-            }
+            //}
         }
         catch(IllegalArgumentException e){
             resetNode(lErrorLabel, false);
@@ -119,7 +118,7 @@ public class CourseReviewController {
         }
     }
     @FXML
-    public void Search(){
+    public void search(){
         resetSeeReviews();
         try{
             reviews = dataManager.getReviews(srSearchBox.getText());
@@ -190,15 +189,15 @@ public class CourseReviewController {
             Node node = (Node) event.getSource();
             if (node.equals(crCourseText)){
                 crRatingText.requestFocus();
+                resetNode(crErrorLabel, true);
             }
             else if(node.equals(crRatingText)){
                 crMessageText.requestFocus();
-            }
-            else if(node.equals(crMessageText)){
-                createReview();
+                resetNode(crErrorLabel, true);
             }
             else if(node.equals(lUsernameText)){
                 lPasswordText.requestFocus();
+                resetNode(lErrorLabel, true);
             }
             else if(node.equals(lPasswordText)){
                 if(lConfirmText.isDisable()){
@@ -206,15 +205,31 @@ public class CourseReviewController {
                 }
                 else{
                     lConfirmText.requestFocus();
+                    resetNode(lErrorLabel, true);
                 }
             }
             else if(node.equals(lConfirmText)){
                     login(event);
             }
             else if(node.equals(srSearchBox)){
-                Search();
+                search();
             }
 
+        }
+    }
+    @FXML
+    public void ratingTyped(){
+        if(crRatingText.getText().length() > 1){
+            crRatingText.setText("");
+            resetNode(crErrorLabel, false);
+            crErrorLabel.setText("rating must be a number between 1-5");
+        }
+        else if(crRatingText.getText().length() == 1){
+            if(crRatingText.getText().charAt(0)<'1'||crRatingText.getText().charAt(0)>'5'){
+                crRatingText.setText("");
+                resetNode(crErrorLabel, false);
+                crErrorLabel.setText("rating must be a number between 1-5");
+            }
         }
     }
 
