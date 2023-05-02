@@ -14,24 +14,24 @@
                         <Font size="15.0" />
                     </font>
                 </Label>
-                <TextField fx:id="crCourseText" />
+                <TextField fx:id="crCourseText" onKeyPressed="#enterKey" onKeyTyped="#clearErrorLabels" />
                 <Label prefHeight="35.0" />
                 <Label text="Rating (1-5) stars ">
                     <font>
                         <Font size="15.0" />
                     </font>
                 </Label>
-                <TextField fx:id="crRatingText" />
+                <TextField fx:id="crRatingText" onKeyPressed="#enterKey" onKeyTyped="#ratingTyped" />
                 <Label prefHeight="35.0" />
                 <Label text="Message">
                     <font>
                         <Font size="15.0" />
                     </font>
                 </Label>
-                <TextField fx:id="crMessageText" alignment="TOP_LEFT" prefHeight="50.0" prefWidth="600.0" />
+                <TextField fx:id="crMessageText" alignment="TOP_LEFT" onKeyTyped="#clearErrorLabels" prefHeight="50.0" prefWidth="600.0" />
                 <Label prefHeight="35.0" prefWidth="0.0" />
                 <Button fx:id="crCreateButton" mnemonicParsing="false" onAction="#createReview" text="Create Review" />
-                <Label fx:id="crErrorLabel" disable="true" prefHeight="35.0" prefWidth="60.0" text="Error Label" visible="false" />
+                <Label fx:id="crErrorLabel" disable="true" prefHeight="35.0" prefWidth="608.0" text="Error Label" visible="false" />
             </children></VBox>
     </children>
 </AnchorPane>
