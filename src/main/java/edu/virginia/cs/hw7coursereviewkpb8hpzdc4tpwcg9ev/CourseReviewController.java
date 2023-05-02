@@ -1,17 +1,25 @@
 package edu.virginia.cs.hw7coursereviewkpb8hpzdc4tpwcg9ev;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
 public class CourseReviewController {
     private Student student;
     private int pageNum;
     private List<Review> reviews;
+    private Stage stage;
     @FXML
     public Button crMainMenuButton, crCreateButton, lLoginButton, lNewUserButton, mmLogout, mmCreateReviewButton, mmSeeReviewsButton, srMainMenuButton, srSearchButton, srReviewBackButton, srReviewForwardButton;
     @FXML
@@ -24,27 +32,45 @@ public class CourseReviewController {
         resetLogin();
     }
     @FXML
-    public void switchToLogin(){
+    public void switchToLogin() throws IOException {
         student = null;
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("login.fxml")));
+        Stage stage = (Stage) mmLogout.getScene().getWindow();
+        stage.setScene(new Scene(root, 600, 400));
         resetLogin();
-        //TODO
     }
     @FXML
-    public void switchToMainMenu(){
-        //TODO
+    public void switchToMainMenu() throws IOException {
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("mainMenu.fxml")));
+        if(crMainMenuButton != null) {
+            Stage stage = (Stage) crMainMenuButton.getScene().getWindow();
+            stage.setScene(new Scene(root, 600, 400));
+        }
+        else if(srMainMenuButton != null){
+            Stage stage = (Stage) srMainMenuButton.getScene().getWindow();
+            stage.setScene(new Scene(root, 600, 400));
+        }
+        else {
+            Stage stage = (Stage) lLoginButton.getScene().getWindow();
+            stage.setScene(new Scene(root, 600, 400));
+        }
     }
     @FXML
-    public void switchToSeeReviews(){
+    public void switchToSeeReviews() throws IOException {
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("seeReviews.fxml")));
+        Stage stage = (Stage) mmSeeReviewsButton.getScene().getWindow();
+        stage.setScene(new Scene(root, 600, 400));
         resetSeeReviews();
-        //TODO
     }
     @FXML
-    public void switchToCreateReview(){
+    public void switchToCreateReview() throws IOException {
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("createReview.fxml")));
+        Stage stage = (Stage) mmCreateReviewButton.getScene().getWindow();
+        stage.setScene(new Scene(root, 600, 400));
         resetCreateReview();
-        //TODO
     }
     @FXML
-    public void login(){
+    public void login(ActionEvent event){
         try {
             if(lConfirmText.isDisable()) {
                 student = dataManager.login(lUsernameText.getText(), lPasswordText.getText());
@@ -52,17 +78,26 @@ public class CourseReviewController {
             else{
                 student = dataManager.createNewUser(lUsernameText.getText(), lPasswordText.getText(), lConfirmText.getText());
             }
-            switchToMainMenu();
+            if(student == null){
+                resetNode(lErrorLabel, false);
+                lErrorLabel.setText("Incorrect Password");
+            }
+            else {
+                switchToMainMenu();
+            }
         }
         catch(IllegalArgumentException e){
             resetNode(lErrorLabel, false);
             lErrorLabel.setText(e.getMessage());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
     @FXML
     public void newUser(){
         resetNode(lUsernameText, false);
         resetNode(lPasswordText, false);
+        resetNode(lErrorLabel,true);
         if(lConfirmText.isDisable()) {
             resetNode(lConfirmText, false);
             resetNode(lConfirmLabel, false);
@@ -165,8 +200,8 @@ public class CourseReviewController {
         resetNode(lConfirmText,true);
         resetNode(lConfirmLabel,true);
         resetNode(lErrorLabel,true);
-        lErrorLabel.setText("");
-        lNewUserButton.setText("New User");
+        if (lErrorLabel != null) lErrorLabel.setText("");
+        if (lNewUserButton != null) lNewUserButton.setText("New User");
     }
 
     public void resetCreateReview(){
@@ -176,7 +211,9 @@ public class CourseReviewController {
         resetNode(crRatingText, false);
         resetNode(crMessageText, false);
         resetNode(crErrorLabel, true);
-        crErrorLabel.setText("");
+        if (crErrorLabel != null) {
+            crErrorLabel.setText("");
+        }
     }
 
     public void resetSeeReviews(){
@@ -193,16 +230,18 @@ public class CourseReviewController {
         resetNode(srReviewPageLabel, true);
         resetNode(srReviewBackButton, true);
         resetNode(srReviewForwardButton, true);
-        srErrorLabel.setText("");
+        if(srErrorLabel != null) srErrorLabel.setText("");
         pageNum = 1;
         reviews = null;
     }
 
-    public void resetNode(Node node, boolean value){
-        node.setVisible(!value);
-        node.setDisable(value);
-        if(node.getClass() == TextField.class){
-            ((TextField) node).setText("");
+    public void resetNode(Node node, boolean value) {
+        if (node != null) {
+            node.setVisible(!value);
+            node.setDisable(value);
+            if (node.getClass() == TextField.class) {
+                ((TextField) node).setText("");
+            }
         }
     }
 }

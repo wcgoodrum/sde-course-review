@@ -11,11 +11,11 @@
                 <TextField fx:id="lUsernameText" />
                 <Label text="Password" />
                 <TextField fx:id="lPasswordText" />
-                <Label fx:id="lConfirmLabel" text="Confirm Password" />
-                <TextField fx:id="lConfirmText" />
+                <Label fx:id="lConfirmLabel" disable="true" text="Confirm Password" visible="false" />
+                <TextField fx:id="lConfirmText" disable="true" visible="false" />
                 <Label />
                 <Button fx:id="lLoginButton" mnemonicParsing="false" onAction="#login" text="Log in" />
-                <Label fx:id="lErrorLabel" prefHeight="41.0" prefWidth="340.0" text="Error message" />
+                <Label fx:id="lErrorLabel" disable="true" prefHeight="41.0" prefWidth="340.0" text="Error message" visible="false" />
                 <Button fx:id="lNewUserButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#newUser" text="New User" />
             </children>
         </VBox>
