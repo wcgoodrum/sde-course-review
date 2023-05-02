@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.virginia.cs.hw7coursereviewkpb8hpzdc4tpwcg9ev.CourseReviewController">
+   <children>
+      <Button layoutX="494.0" layoutY="14.0" mnemonicParsing="false" text="Back to Main Menu" />
+      <VBox alignment="TOP_CENTER" layoutX="7.0" layoutY="55.0" prefHeight="330.0" prefWidth="600.0">
+         <children>
+            <HBox prefHeight="14.0" prefWidth="527.0">
+               <children>
+                  <TextField prefHeight="32.0" prefWidth="546.0" />
+                  <Button mnemonicParsing="false" text="Search" />
+               </children></HBox>
+            <Label text="CourseName">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </Label>
+            <Label text="Rating/Error Message" />
+            <Label prefHeight="22.0" prefWidth="600.0" text="Reviews">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <VBox prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <Label alignment="TOP_LEFT" prefHeight="50.0" prefWidth="600.0" text="Review 1" />
+                  <Label alignment="TOP_LEFT" prefHeight="50.0" prefWidth="600.0" text="Review 2" />
+                  <Label alignment="TOP_LEFT" prefHeight="50.0" prefWidth="600.0" text="Reviiew 3" />
+                  <Label alignment="TOP_LEFT" prefHeight="50.0" prefWidth="600.0" text="Review 4" />
+                  <Label alignment="TOP_LEFT" prefHeight="50.0" prefWidth="600.0" text="Review 5" />
+               </children>
+            </VBox>
+            <HBox alignment="BOTTOM_CENTER" prefHeight="28.0" prefWidth="540.0">
+               <children>
+                  <Button mnemonicParsing="false" text="&lt;-" />
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="25.0" text="1">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Button mnemonicParsing="false" text="-&gt;" />
+               </children></HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
