@@ -1,6 +1,7 @@
 package edu.virginia.cs.hw7coursereviewkpb8hpzdc4tpwcg9ev;
 
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -9,6 +10,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -32,45 +35,35 @@ public class CourseReviewController {
         resetLogin();
     }
     @FXML
-    public void switchToLogin() throws IOException {
+    public void switchToLogin(Event event) throws IOException {
         student = null;
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("login.fxml")));
-        Stage stage = (Stage) mmLogout.getScene().getWindow();
+        Stage stage = (Stage)((Node)(event.getSource())).getScene().getWindow();
         stage.setScene(new Scene(root, 600, 400));
         resetLogin();
     }
     @FXML
-    public void switchToMainMenu() throws IOException {
+    public void switchToMainMenu(Event event) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("mainMenu.fxml")));
-        if(crMainMenuButton != null) {
-            Stage stage = (Stage) crMainMenuButton.getScene().getWindow();
-            stage.setScene(new Scene(root, 600, 400));
-        }
-        else if(srMainMenuButton != null){
-            Stage stage = (Stage) srMainMenuButton.getScene().getWindow();
-            stage.setScene(new Scene(root, 600, 400));
-        }
-        else {
-            Stage stage = (Stage) lLoginButton.getScene().getWindow();
-            stage.setScene(new Scene(root, 600, 400));
-        }
+        Stage stage = (Stage)((Node)(event.getSource())).getScene().getWindow();
+        stage.setScene(new Scene(root, 600, 400));
     }
     @FXML
-    public void switchToSeeReviews() throws IOException {
+    public void switchToSeeReviews(Event event) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("seeReviews.fxml")));
-        Stage stage = (Stage) mmSeeReviewsButton.getScene().getWindow();
+        Stage stage = (Stage)((Node)(event.getSource())).getScene().getWindow();
         stage.setScene(new Scene(root, 600, 400));
         resetSeeReviews();
     }
     @FXML
-    public void switchToCreateReview() throws IOException {
+    public void switchToCreateReview(Event event) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("createReview.fxml")));
-        Stage stage = (Stage) mmCreateReviewButton.getScene().getWindow();
+        Stage stage = (Stage)((Node)(event.getSource())).getScene().getWindow();
         stage.setScene(new Scene(root, 600, 400));
         resetCreateReview();
     }
     @FXML
-    public void login(ActionEvent event){
+    public void login(Event event){
         try {
             if(lConfirmText.isDisable()) {
                 student = dataManager.login(lUsernameText.getText(), lPasswordText.getText());
@@ -83,7 +76,7 @@ public class CourseReviewController {
                 lErrorLabel.setText("Incorrect Password");
             }
             else {
-                switchToMainMenu();
+                switchToMainMenu(event);
             }
         }
         catch(IllegalArgumentException e){
@@ -189,6 +182,40 @@ public class CourseReviewController {
         if(reviews.size()>pageNum*5-1)srReviewLabel5.setText(reviews.get(pageNum*5-1).getText());
         if(reviews.size() < pageNum*5+1) srReviewForwardButton.setDisable(true);
         srReviewBackButton.setDisable(false);
+    }
+
+    @FXML
+    public void enterKey(KeyEvent event){
+        if (event.getCode() == KeyCode.ENTER) {
+            Node node = (Node) event.getSource();
+            if (node.equals(crCourseText)){
+                crRatingText.requestFocus();
+            }
+            else if(node.equals(crRatingText)){
+                crMessageText.requestFocus();
+            }
+            else if(node.equals(crMessageText)){
+                createReview();
+            }
+            else if(node.equals(lUsernameText)){
+                lPasswordText.requestFocus();
+            }
+            else if(node.equals(lPasswordText)){
+                if(lConfirmText.isDisable()){
+                    login(event);
+                }
+                else{
+                    lConfirmText.requestFocus();
+                }
+            }
+            else if(node.equals(lConfirmText)){
+                    login(event);
+            }
+            else if(node.equals(srSearchBox)){
+                Search();
+            }
+
+        }
     }
 
     //////////////////////Helper Functions///////////////////////////

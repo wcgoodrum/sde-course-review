@@ -14,14 +14,14 @@
                         <Font size="15.0" />
                     </font>
                 </Label>
-                <TextField fx:id="crCourseText" />
+                <TextField fx:id="crCourseText" onKeyPressed="#enterKey" />
                 <Label prefHeight="35.0" />
                 <Label text="Rating (1-5) stars ">
                     <font>
                         <Font size="15.0" />
                     </font>
                 </Label>
-                <TextField fx:id="crRatingText" />
+                <TextField fx:id="crRatingText" onKeyPressed="#enterKey" />
                 <Label prefHeight="35.0" />
                 <Label text="Message">
                     <font>
