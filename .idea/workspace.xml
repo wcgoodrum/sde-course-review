@@ -4,16 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="53d84689-4bc5-4ad0-aeec-f4969144d07b" name="Changes" comment="added versioned files to see what happens">
-      <change beforePath="$PROJECT_DIR$/.gradle/7.6/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.6/executionHistory/executionHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/libs/HW7_Course_Review-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/build/libs/HW7_Course_Review-1.0-SNAPSHOT.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/virginia/cs/hw7coursereviewkpb8hpzdc4tpwcg9ev/CourseReviewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/virginia/cs/hw7coursereviewkpb8hpzdc4tpwcg9ev/CourseReviewController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/edu/virginia/cs/hw7coursereviewkpb8hpzdc4tpwcg9ev/createReview.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/edu/virginia/cs/hw7coursereviewkpb8hpzdc4tpwcg9ev/createReview.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/edu/virginia/cs/hw7coursereviewkpb8hpzdc4tpwcg9ev/login.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/edu/virginia/cs/hw7coursereviewkpb8hpzdc4tpwcg9ev/login.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/edu/virginia/cs/hw7coursereviewkpb8hpzdc4tpwcg9ev/seeReviews.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/edu/virginia/cs/hw7coursereviewkpb8hpzdc4tpwcg9ev/seeReviews.fxml" afterDir="false" />
-    </list>
+    <list default="true" id="53d84689-4bc5-4ad0-aeec-f4969144d07b" name="Changes" comment="added enter key functionality" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -170,7 +161,7 @@
       <updated>1682540787046</updated>
       <workItem from="1682540788305" duration="1356000" />
       <workItem from="1682649548807" duration="9694000" />
-      <workItem from="1683049874833" duration="1699000" />
+      <workItem from="1683049874833" duration="2006000" />
     </task>
     <task id="LOCAL-00001" summary="added files">
       <created>1682620628203</created>
@@ -277,7 +268,14 @@
       <option name="project" value="LOCAL" />
       <updated>1683047392409</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="added enter key functionality">
+      <created>1683051856388</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1683051856388</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -321,7 +319,8 @@
     <MESSAGE value="commit so I can reset main" />
     <MESSAGE value="fixed main branch I think" />
     <MESSAGE value="added versioned files to see what happens" />
-    <option name="LAST_COMMIT_MESSAGE" value="added versioned files to see what happens" />
+    <MESSAGE value="added enter key functionality" />
+    <option name="LAST_COMMIT_MESSAGE" value="added enter key functionality" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

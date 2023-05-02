@@ -8,11 +8,11 @@
         <VBox layoutX="155.0" layoutY="86.0" prefHeight="227.0" prefWidth="290.0">
             <children>
                 <Label text="Username" />
-                <TextField fx:id="lUsernameText" />
+                <TextField fx:id="lUsernameText" onKeyPressed="#enterKey" />
                 <Label text="Password" />
-                <TextField fx:id="lPasswordText" />
+                <TextField fx:id="lPasswordText" onKeyPressed="#enterKey" />
                 <Label fx:id="lConfirmLabel" disable="true" text="Confirm Password" visible="false" />
-                <TextField fx:id="lConfirmText" disable="true" visible="false" />
+                <TextField fx:id="lConfirmText" disable="true" onKeyPressed="#enterKey" visible="false" />
                 <Label />
                 <Button fx:id="lLoginButton" mnemonicParsing="false" onAction="#login" text="Log in" />
                 <Label fx:id="lErrorLabel" disable="true" prefHeight="41.0" prefWidth="340.0" text="Error message" visible="false" />
