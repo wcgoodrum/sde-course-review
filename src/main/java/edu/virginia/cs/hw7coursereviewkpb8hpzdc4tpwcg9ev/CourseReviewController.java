@@ -70,13 +70,14 @@ public class CourseReviewController {
             else{
                 student = dataManager.createNewUser(lUsernameText.getText(), lPasswordText.getText(), lConfirmText.getText());
             }
-//            if(student == null){
-//                resetNode(lErrorLabel, false);
-//                lErrorLabel.setText("Incorrect Password");
-//            }
-//            else {
+            if(student == null){
+                resetNode(lErrorLabel, false);
+                lErrorLabel.setText("Incorrect Password");
+                lPasswordText.requestFocus();
+            }
+            else {
                 switchToMainMenu(event);
-            //}
+            }
         }
         catch(IllegalArgumentException e){
             resetNode(lErrorLabel, false);
@@ -230,6 +231,18 @@ public class CourseReviewController {
                 resetNode(crErrorLabel, false);
                 crErrorLabel.setText("rating must be a number between 1-5");
             }
+        }
+    }
+    @FXML
+    public void clearErrorLabels(){
+        if(lErrorLabel != null){
+            resetNode(lErrorLabel, true);
+        }
+        else if(crErrorLabel != null){
+            resetNode(crErrorLabel, true);
+        }
+        else if(srErrorLabel != null){
+            resetNode(srErrorLabel, true);
         }
     }
 
