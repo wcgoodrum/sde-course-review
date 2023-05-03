@@ -13,7 +13,7 @@ public class DataManagerImpl implements DataManager {
     public void connect() throws SQLException {
         File file = new File ("Reviews.sqlite3");
         if (file.exists()) {
-            System.out.println("Reviews.sqlite3 is in the root directory!");
+            //System.out.println("Reviews.sqlite3 is in the root directory!");
         }
 
         String filePath = "Reviews.sqlite3";
@@ -32,7 +32,7 @@ public class DataManagerImpl implements DataManager {
             throw new RuntimeException(e);
         }
     }
-
+    @Override
     public void setUp() throws SQLException {
         connect();
         deleteTables();
@@ -83,18 +83,82 @@ public class DataManagerImpl implements DataManager {
         }
     }
 
+
     @Override
-    public Student login(String user, String password) {
-        return null;
+    public Student login(String user, String password) throws SQLException {
+        if (user == null || password == null) {
+            throw new IllegalArgumentException("Fields are null.");
+        }
+        if (user.length() == 0 || password.length() == 0) {
+            throw new IllegalArgumentException("Username or Password is empty.");
+        }
+
+        try {
+            connect();
+            String queryUser = "SELECT * FROM Students WHERE username = '"+user+"'";
+            Statement statementUser = connection.createStatement();
+            ResultSet rs = statementUser.executeQuery(queryUser);
+            if (rs.getString(3).equals(password)) {
+                int id = rs.getInt(1);
+                rs.close();
+                disconnect();
+                return new Student(user, password, id);
+            }else{
+                disconnect();
+                throw new IllegalArgumentException("Username not found or Password incorrect.");
+            }
+        } catch(SQLException e){
+            disconnect();
+        throw new RuntimeException(e);
+        }
     }
 
     @Override
-    public Student createNewUser(String user, String password, String confirm) {
-        return null;
+    public Student createNewUser(String user, String password, String passwordConfirm) throws SQLException {
+        if (user == null || password == null || passwordConfirm == null) {
+            throw new IllegalArgumentException("Fields are null.");
+        }
+
+        if (user.length() == 0 || password.length() == 0) {
+            throw new IllegalArgumentException("Username or Password is empty.");
+        }
+
+        if (!password.equals(passwordConfirm)) {
+            throw new IllegalArgumentException("Passwords do not match.");
+        }
+        try {
+            connect();
+            String queryUserExists = "SELECT COUNT(*) FROM Students WHERE username = '"+user+"'";
+            Statement statementUserExists = connection.createStatement();
+            ResultSet rs = statementUserExists.executeQuery(queryUserExists);
+            rs.next();
+            if (rs.getInt(1) > 0) {
+                disconnect();
+                throw new IllegalArgumentException("Username already taken.");
+            }
+            rs.close();
+
+            String queryCreation = "INSERT INTO Students (username, password) VALUES('"+user+"', '"+password+"')";
+            Statement statementCreation = connection.createStatement();
+            statementCreation.executeUpdate(queryCreation);
+
+            String queryFindID = "SELECT id FROM Students WHERE username = '"+user+"'";
+            Statement statementFindID = connection.createStatement();
+            ResultSet rsStudent = statementFindID.executeQuery(queryFindID);
+            int id = rsStudent.getInt(1);
+            rsStudent.close();
+            disconnect();
+            return new Student (user, password, id);
+
+        } catch(SQLException e){
+            disconnect();
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public boolean validCourse(String courseName, Student student) {
+
         return false;
     }
 
@@ -281,8 +345,7 @@ public class DataManagerImpl implements DataManager {
 
     public static void main(String args[]) throws SQLException {
         DataManager thing = new DataManagerImpl();
-        thing.connect();
-        thing.disconnect();
+        thing.setUp();
     }
 
 }

@@ -1,5 +1,6 @@
 package edu.virginia.cs.hw7coursereviewkpb8hpzdc4tpwcg9ev;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -14,17 +15,22 @@ public class CommandLineCourseReview {
     }
 
     public void run(){
+        try {
+            dataManager.setUp();
+        } catch(SQLException e){
+            throw new RuntimeException("!! setup failed !!");
+        }
         loginScreen();
     }
 
-    public void loginScreen(){
-        for (;;){
-            System.out.println("Type login to login or new user if new user\n");
+    public void loginScreen() {
+        for (;;) {
+            System.out.print("Type LOGIN to login or NEW to create account > ");
             String loginChoice = scanner.nextLine();
             if (loginChoice.toUpperCase().equals("LOGIN")){
-                System.out.println("\nEnter Username");
+                System.out.print("Enter Username > ");
                 String user = scanner.nextLine();
-                System.out.println("\nEnter Password");
+                System.out.print("Enter Password > ");
                 String password = scanner.nextLine();
                 try{
                     Student student = dataManager.login(user, password);
@@ -33,20 +39,24 @@ public class CommandLineCourseReview {
                         mainMenu();
                     }
                     else{
-                        System.out.println("wrong password");
+                        System.out.println("Wrong password.");
                     }
                 }
                 catch(IllegalArgumentException e){
                     System.out.println(e);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
                 }
             }
-            else if (loginChoice.toUpperCase().equals("NEW USER")){
-                System.out.println("\nEnter Username");
+            else if (loginChoice.toUpperCase().equals("NEW")){
+                System.out.print("Enter Username > ");
                 String user = scanner.nextLine();
-                System.out.println("\nEnter Password");
+                System.out.print("Enter Password > ");
                 String password = scanner.nextLine();
-                System.out.println("\nConfirm Password");
+                System.out.print("Confirm Password > ");
                 String confirm = scanner.nextLine();
+                System.out.println(user + password + confirm);
+
                 try{
                     Student student = dataManager.createNewUser(user, password, confirm);
                     if(student != null){
@@ -59,6 +69,8 @@ public class CommandLineCourseReview {
                 }
                 catch(IllegalArgumentException e){
                     System.out.println(e);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
                 }
             }
             else{

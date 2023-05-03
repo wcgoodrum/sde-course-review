@@ -14,6 +14,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Objects;
 
@@ -79,11 +80,9 @@ public class CourseReviewController {
                 switchToMainMenu(event);
             }
         }
-        catch(IllegalArgumentException e){
+        catch(IllegalArgumentException | SQLException | IOException e){
             resetNode(lErrorLabel, false);
             lErrorLabel.setText(e.getMessage());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
     }
     @FXML
@@ -94,11 +93,13 @@ public class CourseReviewController {
         if(lConfirmText.isDisable()) {
             resetNode(lConfirmText, false);
             resetNode(lConfirmLabel, false);
+            lLoginButton.setText("Sign up");
             lNewUserButton.setText("Have an account");
         }
         else{
             resetNode(lConfirmText, true);
             resetNode(lConfirmLabel, true);
+            lLoginButton.setText("Login");
             lNewUserButton.setText("New User");
         }
     }
@@ -106,6 +107,8 @@ public class CourseReviewController {
     public void createReview(){
         try{
             dataManager.addReview(student, crCourseText.getText(), crMessageText.getText(), Integer.parseInt(crRatingText.getText().replace(" ","")));
+            resetNode(crErrorLabel, false);
+            crErrorLabel.setText("Review Created");
         }
         catch (NumberFormatException e){
             resetCreateReview();
@@ -237,15 +240,15 @@ public class CourseReviewController {
     }
     @FXML
     public void clearErrorLabels(){
-        if(lErrorLabel != null){
-            resetNode(lErrorLabel, true);
-        }
-        else if(crErrorLabel != null){
-            resetNode(crErrorLabel, true);
-        }
-        else if(srErrorLabel != null){
-            resetNode(srErrorLabel, true);
-        }
+//        if(lErrorLabel != null){
+//            resetNode(lErrorLabel, true);
+//        }
+//        else if(crErrorLabel != null){
+//            resetNode(crErrorLabel, true);
+//        }
+//        else if(srErrorLabel != null){
+//            resetNode(srErrorLabel, true);
+//        }
     }
 
     //////////////////////Helper Functions///////////////////////////
