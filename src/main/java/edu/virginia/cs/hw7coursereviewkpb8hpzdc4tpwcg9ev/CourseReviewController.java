@@ -31,8 +31,14 @@ public class CourseReviewController {
     public Label crErrorLabel, lConfirmLabel, lErrorLabel, srCourseName, srReviewsLabel, srErrorLabel, srReviewLabel1, srReviewLabel2, srReviewLabel3, srReviewLabel4, srReviewLabel5, srReviewPageLabel;
     private DataManager dataManager = new DataManagerImpl();
     @FXML
-    public void initialize(){
-        resetLogin();
+    public void initialize() {
+        try {
+            dataManager.setUp();
+        }
+        catch (SQLException e){
+            resetNode(lErrorLabel, false);
+            lErrorLabel.setText(e.getMessage());
+        }
     }
     @FXML
     public void switchToLogin(Event event) throws IOException {
