@@ -10,8 +10,7 @@ public class DataManagerImpl implements DataManager {
     private boolean connected = false;
 
     @Override
-    public void setUp() throws SQLException {
-        // I think I need to handle it when file base doesn't exist...?
+    public void connect() throws SQLException {
         File file = new File ("Reviews.sqlite3");
         if (file.exists()) {
             System.out.println("Reviews.sqlite3 is in the root directory!");
@@ -28,12 +27,17 @@ public class DataManagerImpl implements DataManager {
             connection = DriverManager.getConnection("jdbc:sqlite:" + filePath);
             connection.setAutoCommit(false);
             connected = true;
-            deleteTables();
-            createTables(); // needs to debug
         }
         catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public void setUp() throws SQLException {
+        connect();
+        deleteTables();
+        createTables();
+        disconnect();
     }
 
     @Override
@@ -277,7 +281,7 @@ public class DataManagerImpl implements DataManager {
 
     public static void main(String args[]) throws SQLException {
         DataManager thing = new DataManagerImpl();
-        thing.setUp();
+        thing.connect();
         thing.disconnect();
     }
 
