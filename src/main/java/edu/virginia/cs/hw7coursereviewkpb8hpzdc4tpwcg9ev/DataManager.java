@@ -3,12 +3,13 @@ import java.sql.SQLException;
 import java.util.List;
 public interface DataManager {
 
-    /**
-     * Establishes the database connection. Must be called before any other
-     * methods are called.
-     *
-     * @throws IllegalStateException if the Manager is already connected
-     */
+
+        /**
+         * Establishes the database connection. Must be called before any other
+         * methods are called.
+         *
+         * @throws IllegalStateException if the Manager is already connected
+         */
     void setUp() throws SQLException;
 
     /**
