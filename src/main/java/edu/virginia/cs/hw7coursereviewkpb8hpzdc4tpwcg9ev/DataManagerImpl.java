@@ -199,7 +199,6 @@ public class DataManagerImpl implements DataManager {
         statementJohn.executeUpdate(queryToAddJohn);
         statementEmily.executeUpdate(queryToAddEmily);
         statementAnna.executeUpdate(queryToAddAnna);
-
     }
 
     private void populateCoursesTable() throws SQLException {
@@ -343,9 +342,9 @@ public class DataManagerImpl implements DataManager {
 
     public static void main(String args[]) throws SQLException {
         DataManager thing = new DataManagerImpl();
-        thing.connect();
+//        thing.connect();
         thing.setUp();
-        thing.disconnect();
+//        thing.disconnect();
     }
 
 }
