@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.virginia.cs.hw7coursereviewkpb8hpzdc4tpwcg9ev.CourseReviewController">
+    <children>
+        <Button fx:id="srMainMenuButton" layoutX="473.0" layoutY="14.0" mnemonicParsing="false" onAction="#switchToMainMenu" text="Back to Main Menu" />
+        <VBox alignment="TOP_CENTER" layoutX="7.0" layoutY="55.0" prefHeight="330.0" prefWidth="600.0">
+            <children>
+                <HBox prefHeight="14.0" prefWidth="527.0">
+                    <children>
+                        <TextField fx:id="srSearchBox" prefHeight="32.0" prefWidth="546.0" />
+                        <Button fx:id="srSearchButton" mnemonicParsing="false" onAction="#Search" text="Search" />
+                    </children></HBox>
+                <Label fx:id="srCourseName" disable="true" text="CourseName" visible="false">
+                    <font>
+                        <Font size="30.0" />
+                    </font>
+                </Label>
+                <Label fx:id="srErrorLabel" disable="true" text="Rating/Error Message" visible="false" />
+                <Label fx:id="srReviewsLabel" disable="true" prefHeight="22.0" prefWidth="600.0" text="Reviews" visible="false">
+                    <font>
+                        <Font size="15.0" />
+                    </font>
+                </Label>
+                <VBox prefHeight="200.0" prefWidth="100.0">
+                    <children>
+                        <Label fx:id="srReviewLabel1" alignment="TOP_LEFT" disable="true" prefHeight="50.0" prefWidth="600.0" text="Review 1" visible="false" />
+                        <Label fx:id="srReviewLabel2" alignment="TOP_LEFT" disable="true" prefHeight="50.0" prefWidth="600.0" text="Review 2" visible="false" />
+                        <Label fx:id="srReviewLabel3" alignment="TOP_LEFT" disable="true" prefHeight="50.0" prefWidth="600.0" text="Reviiew 3" visible="false" />
+                        <Label fx:id="srReviewLabel4" alignment="TOP_LEFT" disable="true" prefHeight="50.0" prefWidth="600.0" text="Review 4" visible="false" />
+                        <Label fx:id="srReviewLabel5" alignment="TOP_LEFT" disable="true" prefHeight="50.0" prefWidth="600.0" text="Review 5" visible="false" />
+                    </children>
+                </VBox>
+                <HBox alignment="BOTTOM_CENTER" prefHeight="28.0" prefWidth="540.0">
+                    <children>
+                        <Button fx:id="srReviewBackButton" disable="true" mnemonicParsing="false" onAction="#backButton" text="&lt;-" visible="false" />
+                        <Label fx:id="srReviewPageLabel" alignment="CENTER" contentDisplay="CENTER" disable="true" prefHeight="18.0" prefWidth="25.0" text="1" visible="false">
+                            <font>
+                                <Font size="16.0" />
+                            </font>
+                        </Label>
+                        <Button fx:id="srReviewForwardButton" disable="true" mnemonicParsing="false" onAction="#forwardButton" text="-&gt;" visible="false" />
+                    </children></HBox>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>
