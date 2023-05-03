@@ -28,7 +28,7 @@ public interface DataManager {
      *returns null if password is wrong
      *@throws IllegalArgumentException if the username is not in the database
      */
-    Student login(String user, String password);
+    Student login(String user, String password) throws SQLException;
 
     /**
      *returns created Student
@@ -36,7 +36,7 @@ public interface DataManager {
      *@throws IllegalArgumentException if username or password is empty
      *@throws IllegalArgumentException if password does not equal confirm
      */
-    Student createNewUser(String user, String password, String confirm);
+    Student createNewUser(String user, String password, String confirm) throws SQLException;
 
     /**
      *returns true if the course is valid
@@ -76,4 +76,10 @@ public interface DataManager {
      */
     public void disconnect() throws SQLException;
 
+    void setUp() throws SQLException;
+
+    /**
+     * deletes all tables from the database
+     */
+    void deleteTables() throws SQLException;
 }

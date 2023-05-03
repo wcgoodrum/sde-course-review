@@ -14,7 +14,7 @@
                 <Label fx:id="lConfirmLabel" disable="true" text="Confirm Password" visible="false" />
                 <TextField fx:id="lConfirmText" disable="true" onKeyPressed="#enterKey" onKeyTyped="#clearErrorLabels" visible="false" />
                 <Label />
-                <Button fx:id="lLoginButton" mnemonicParsing="false" onAction="#login" text="Log in" />
+                <Button fx:id="lLoginButton" mnemonicParsing="false" onAction="#login" text="Login" />
                 <Label fx:id="lErrorLabel" disable="true" prefHeight="41.0" prefWidth="340.0" text="Error message" visible="false" />
                 <Button fx:id="lNewUserButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#newUser" text="New User" />
             </children>
