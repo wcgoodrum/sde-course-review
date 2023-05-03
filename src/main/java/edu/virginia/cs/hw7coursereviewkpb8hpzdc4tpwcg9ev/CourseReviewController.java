@@ -99,11 +99,13 @@ public class CourseReviewController {
         if(lConfirmText.isDisable()) {
             resetNode(lConfirmText, false);
             resetNode(lConfirmLabel, false);
+            lLoginButton.setText("Sign up");
             lNewUserButton.setText("Have an account");
         }
         else{
             resetNode(lConfirmText, true);
             resetNode(lConfirmLabel, true);
+            lLoginButton.setText("Login");
             lNewUserButton.setText("New User");
         }
     }
