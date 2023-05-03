@@ -4,11 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="53d84689-4bc5-4ad0-aeec-f4969144d07b" name="Changes" comment="added rating text box functionality">
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/virginia/cs/hw7coursereviewkpb8hpzdc4tpwcg9ev/CourseReviewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/virginia/cs/hw7coursereviewkpb8hpzdc4tpwcg9ev/CourseReviewController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/edu/virginia/cs/hw7coursereviewkpb8hpzdc4tpwcg9ev/createReview.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/edu/virginia/cs/hw7coursereviewkpb8hpzdc4tpwcg9ev/createReview.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/edu/virginia/cs/hw7coursereviewkpb8hpzdc4tpwcg9ev/login.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/edu/virginia/cs/hw7coursereviewkpb8hpzdc4tpwcg9ev/login.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/edu/virginia/cs/hw7coursereviewkpb8hpzdc4tpwcg9ev/seeReviews.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/edu/virginia/cs/hw7coursereviewkpb8hpzdc4tpwcg9ev/seeReviews.fxml" afterDir="false" />
+    <list default="true" id="53d84689-4bc5-4ad0-aeec-f4969144d07b" name="Changes" comment="added some more functionality">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -108,7 +105,20 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RunManager" selected="Application.CourseReviewApplication">
+  <component name="RunManager" selected="Application.CommandLineCourseReview">
+    <configuration name="CommandLineCourseReview" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="edu.virginia.cs.hw7coursereviewkpb8hpzdc4tpwcg9ev.CommandLineCourseReview" />
+      <module name="HW7_Course_Review.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="edu.virginia.cs.hw7coursereviewkpb8hpzdc4tpwcg9ev.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="CourseReviewApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="edu.virginia.cs.hw7coursereviewkpb8hpzdc4tpwcg9ev.CourseReviewApplication" />
       <module name="HW7_Course_Review.main" />
@@ -150,6 +160,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.CommandLineCourseReview" />
         <item itemvalue="Application.CourseReviewApplication" />
         <item itemvalue="Application.HelloApplication" />
         <item itemvalue="Application.DataManagerImpl" />
@@ -166,7 +177,8 @@
       <updated>1682540787046</updated>
       <workItem from="1682540788305" duration="1356000" />
       <workItem from="1682649548807" duration="9694000" />
-      <workItem from="1683049874833" duration="4078000" />
+      <workItem from="1683049874833" duration="4304000" />
+      <workItem from="1683055556872" duration="974000" />
     </task>
     <task id="LOCAL-00001" summary="added files">
       <created>1682620628203</created>
@@ -294,7 +306,14 @@
       <option name="project" value="LOCAL" />
       <updated>1683053613851</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="added some more functionality">
+      <created>1683054165715</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1683054165715</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -340,7 +359,8 @@
     <MESSAGE value="added versioned files to see what happens" />
     <MESSAGE value="added enter key functionality" />
     <MESSAGE value="added rating text box functionality" />
-    <option name="LAST_COMMIT_MESSAGE" value="added rating text box functionality" />
+    <MESSAGE value="added some more functionality" />
+    <option name="LAST_COMMIT_MESSAGE" value="added some more functionality" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

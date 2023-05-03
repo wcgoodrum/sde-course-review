@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class CommandLineCourseReview {
-    private Scanner scanner;
+    private Scanner scanner = new Scanner(System.in);
     private Student student = null;
     private DataManager dataManager = new DataManagerImpl();
 
@@ -33,11 +33,11 @@ public class CommandLineCourseReview {
                         mainMenu();
                     }
                     else{
-                        System.out.print("wrong password");
+                        System.out.println("wrong password");
                     }
                 }
                 catch(IllegalArgumentException e){
-                    System.out.print(e);
+                    System.out.println(e);
                 }
             }
             else if (loginChoice.toUpperCase().equals("NEW USER")){
@@ -54,11 +54,11 @@ public class CommandLineCourseReview {
                         mainMenu();
                     }
                     else{
-                        System.out.print("wrong password");
+                        System.out.println("wrong password");
                     }
                 }
                 catch(IllegalArgumentException e){
-                    System.out.print(e);
+                    System.out.println(e);
                 }
             }
             else{
