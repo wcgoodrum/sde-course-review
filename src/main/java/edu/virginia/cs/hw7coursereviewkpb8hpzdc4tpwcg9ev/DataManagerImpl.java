@@ -32,7 +32,7 @@ public class DataManagerImpl implements DataManager {
             throw new RuntimeException(e);
         }
     }
-
+    @Override
     public void setUp() throws SQLException {
         connect();
         deleteTables();
@@ -85,7 +85,7 @@ public class DataManagerImpl implements DataManager {
 
 
     @Override
-    public Student login(String user, String password) {
+    public Student login(String user, String password) throws SQLException {
         if (user == null || password == null) {
             throw new IllegalArgumentException("Fields are null.");
         }
@@ -94,18 +94,21 @@ public class DataManagerImpl implements DataManager {
         }
 
         try {
+            connect();
             String queryUser = "SELECT * FROM Students WHERE username = '"+user+"'";
             Statement statementUser = connection.createStatement();
             ResultSet rs = statementUser.executeQuery(queryUser);
-
             if (rs.getString(3).equals(password)) {
                 int id = rs.getInt(1);
                 rs.close();
+                disconnect();
                 return new Student(user, password, id);
             }else{
+                disconnect();
                 throw new IllegalArgumentException("Username not found or Password incorrect.");
             }
         } catch(SQLException e){
+            disconnect();
         throw new RuntimeException(e);
         }
     }

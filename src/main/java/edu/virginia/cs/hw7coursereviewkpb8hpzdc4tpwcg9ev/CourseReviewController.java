@@ -84,7 +84,11 @@ public class CourseReviewController {
             resetNode(lErrorLabel, false);
             lErrorLabel.setText(e.getMessage());
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            resetNode(lErrorLabel, false);
+            lErrorLabel.setText(e.getMessage());
+        } catch (SQLException e) {
+            resetNode(lErrorLabel, false);
+            lErrorLabel.setText(e.getMessage());
         }
     }
     @FXML
@@ -107,6 +111,8 @@ public class CourseReviewController {
     public void createReview(){
         try{
             dataManager.addReview(student, crCourseText.getText(), crMessageText.getText(), Integer.parseInt(crRatingText.getText().replace(" ","")));
+            resetNode(crErrorLabel, false);
+            crErrorLabel.setText("Review Created");
         }
         catch (NumberFormatException e){
             resetCreateReview();

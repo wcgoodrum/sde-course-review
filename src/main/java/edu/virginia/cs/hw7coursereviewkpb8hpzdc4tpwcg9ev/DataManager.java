@@ -28,7 +28,7 @@ public interface DataManager {
      *returns null if password is wrong
      *@throws IllegalArgumentException if the username is not in the database
      */
-    Student login(String user, String password);
+    Student login(String user, String password) throws SQLException;
 
     /**
      *returns created Student
@@ -76,4 +76,5 @@ public interface DataManager {
      */
     public void disconnect() throws SQLException;
 
+    void setUp() throws SQLException;
 }
