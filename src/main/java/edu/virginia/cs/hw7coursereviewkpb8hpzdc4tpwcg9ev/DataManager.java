@@ -77,4 +77,9 @@ public interface DataManager {
     public void disconnect() throws SQLException;
 
     void setUp() throws SQLException;
+
+    /**
+     * deletes all tables from the database
+     */
+    void deleteTables() throws SQLException;
 }

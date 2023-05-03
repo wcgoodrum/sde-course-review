@@ -1,6 +1,5 @@
 package edu.virginia.cs.hw7coursereviewkpb8hpzdc4tpwcg9ev;
 
-import java.io.File;
 import java.sql.*;
 import java.util.List;
 
@@ -11,10 +10,7 @@ public class DataManagerImpl implements DataManager {
 
     @Override
     public void connect() throws SQLException {
-//        File file = new File ("Reviews.sqlite3");
-//        if (file.exists()) {
-            //System.out.println("Reviews.sqlite3 is in the root directory!");
-//        }
+
         String filePath = "Reviews.sqlite3";
 
         if (connected) {
@@ -32,11 +28,41 @@ public class DataManagerImpl implements DataManager {
     }
 
     @Override
-    // ONLY CALL this method for initial set up
+    // Call this method for initial set up
     public void setUp() throws SQLException {
         connect();
-        deleteTables();
-        createTables();
+
+        if (!allThreeTablesExist()) {
+            System.out.println("Creating all three tables now...");
+            createTables();
+        }
+
+        String queryToGetCountFromStudents = "SELECT count(*) FROM Students";
+        Statement studentsStatement = connection.createStatement();
+
+        String queryToGetCountFromCourses = "SELECT count(*) FROM Courses";
+        Statement coursesStatement = connection.createStatement();
+
+        String queryToGetCountFromReviews = "SELECT count(*) FROM Reviews";
+        Statement reviewsStatement = connection.createStatement();
+
+        ResultSet studentsRS = studentsStatement.executeQuery(queryToGetCountFromStudents);
+        ResultSet coursesRS = coursesStatement.executeQuery(queryToGetCountFromCourses);
+        ResultSet reviewsRS = reviewsStatement.executeQuery(queryToGetCountFromReviews);
+
+        if (studentsRS.getInt(1) <= 0) {
+            System.out.println("Populating Students table now...");
+            populateStudentsTable();
+        }
+        if (coursesRS.getInt(1) <= 0) {
+            System.out.println("Populating Courses table now...");
+            populateCoursesTable();
+        }
+        if (reviewsRS.getInt(1) >= 0) {
+            System.out.println("Populating Reviews table now...");
+            populateReviewsTable();
+        }
+
         disconnect();
     }
 
@@ -74,14 +100,8 @@ public class DataManagerImpl implements DataManager {
             statementStops.executeUpdate(queryToCreateStudents);
             statementBusLines.executeUpdate(queryToCreateCourses);
             statementRoutes.executeUpdate(queryToCreateReviews);
-
-            // populate tables
-            populateCoursesTable();
-            populateStudentsTable();
-            populateReviewsTable();
         }
     }
-
 
     @Override
     public Student login(String user, String password) throws SQLException {
@@ -312,7 +332,9 @@ public class DataManagerImpl implements DataManager {
         return thereIsStudents || thereIsCourses || thereIsReviews;
     }
 
-    public void deleteTables() {
+    @Override
+    public void deleteTables() throws SQLException {
+        connect();
         if(!connected) {
             throw new IllegalStateException("Manager is not connected yet.");
         }
@@ -333,6 +355,7 @@ public class DataManagerImpl implements DataManager {
                 statementStudents.executeUpdate(queryToDeleteStudents);
                 statementCourses.executeUpdate(queryToDeleteCourses);
                 statementReviews.executeUpdate(queryToDeleteReviews);
+                disconnect();
             }
         }
         catch(Exception e) {
@@ -343,6 +366,7 @@ public class DataManagerImpl implements DataManager {
     public static void main(String args[]) throws SQLException {
         DataManager thing = new DataManagerImpl();
 //        thing.connect();
+//        thing.deleteTables();
         thing.setUp();
 //        thing.disconnect();
     }
