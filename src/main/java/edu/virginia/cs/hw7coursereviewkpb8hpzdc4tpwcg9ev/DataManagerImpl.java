@@ -11,18 +11,16 @@ public class DataManagerImpl implements DataManager {
 
     @Override
     public void connect() throws SQLException {
-        File file = new File ("Reviews.sqlite3");
-        if (file.exists()) {
+//        File file = new File ("Reviews.sqlite3");
+//        if (file.exists()) {
             //System.out.println("Reviews.sqlite3 is in the root directory!");
-        }
-
+//        }
         String filePath = "Reviews.sqlite3";
 
         if (connected) {
             throw new IllegalStateException("Already Connected.");
         }
         try {
-//            String url = ConfigSingleton.getInstance().getDatabaseFilename();
             Class.forName("org.sqlite.JDBC");
             connection = DriverManager.getConnection("jdbc:sqlite:" + filePath);
             connection.setAutoCommit(false);
@@ -32,7 +30,9 @@ public class DataManagerImpl implements DataManager {
             throw new RuntimeException(e);
         }
     }
+
     @Override
+    // ONLY CALL this method for initial set up
     public void setUp() throws SQLException {
         connect();
         deleteTables();
@@ -42,15 +42,14 @@ public class DataManagerImpl implements DataManager {
 
     @Override
     public void createTables() throws SQLException {
-
         if(!connected) {
             throw new IllegalStateException("Manager is not connected yet.");
         }
-
         String queryToCreateStudents = "CREATE TABLE Students " +
                 "(id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "username VARCHAR(255) NOT NULL, " +
-                "password VARCHAR(255) NOT NULL)";
+                "password VARCHAR(255) NOT NULL, " +
+                "UNIQUE(username))";
         String queryToCreateCourses = "CREATE TABLE Courses " +
                 "(id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "department VARCHAR(255) NOT NULL, " +
@@ -103,7 +102,7 @@ public class DataManagerImpl implements DataManager {
                 rs.close();
                 disconnect();
                 return new Student(user, password, id);
-            }else{
+            } else {
                 disconnect();
                 throw new IllegalArgumentException("Username not found or Password incorrect.");
             }
@@ -150,7 +149,7 @@ public class DataManagerImpl implements DataManager {
             disconnect();
             return new Student (user, password, id);
 
-        } catch(SQLException e){
+        } catch (SQLException e) {
             disconnect();
             throw new RuntimeException(e);
         }
@@ -158,13 +157,12 @@ public class DataManagerImpl implements DataManager {
 
     @Override
     public boolean validCourse(String courseName, Student student) {
-
         return false;
     }
 
     @Override
     public void addReview(Student student, String courseName, String text, int rating) {
-        // TODO:
+
     }
 
     @Override
@@ -345,7 +343,9 @@ public class DataManagerImpl implements DataManager {
 
     public static void main(String args[]) throws SQLException {
         DataManager thing = new DataManagerImpl();
+        thing.connect();
         thing.setUp();
+        thing.disconnect();
     }
 
 }
