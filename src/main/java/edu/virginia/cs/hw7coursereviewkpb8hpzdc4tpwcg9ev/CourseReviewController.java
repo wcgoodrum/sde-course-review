@@ -80,13 +80,7 @@ public class CourseReviewController {
                 switchToMainMenu(event);
             }
         }
-        catch(IllegalArgumentException e){
-            resetNode(lErrorLabel, false);
-            lErrorLabel.setText(e.getMessage());
-        } catch (IOException e) {
-            resetNode(lErrorLabel, false);
-            lErrorLabel.setText(e.getMessage());
-        } catch (SQLException e) {
+        catch(IllegalArgumentException | SQLException | IOException e){
             resetNode(lErrorLabel, false);
             lErrorLabel.setText(e.getMessage());
         }
@@ -246,15 +240,15 @@ public class CourseReviewController {
     }
     @FXML
     public void clearErrorLabels(){
-        if(lErrorLabel != null){
-            resetNode(lErrorLabel, true);
-        }
-        else if(crErrorLabel != null){
-            resetNode(crErrorLabel, true);
-        }
-        else if(srErrorLabel != null){
-            resetNode(srErrorLabel, true);
-        }
+//        if(lErrorLabel != null){
+//            resetNode(lErrorLabel, true);
+//        }
+//        else if(crErrorLabel != null){
+//            resetNode(crErrorLabel, true);
+//        }
+//        else if(srErrorLabel != null){
+//            resetNode(srErrorLabel, true);
+//        }
     }
 
     //////////////////////Helper Functions///////////////////////////

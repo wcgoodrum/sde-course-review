@@ -114,7 +114,7 @@ public class DataManagerImpl implements DataManager {
     }
 
     @Override
-    public Student createNewUser(String user, String password, String passwordConfirm) {
+    public Student createNewUser(String user, String password, String passwordConfirm) throws SQLException {
         if (user == null || password == null || passwordConfirm == null) {
             throw new IllegalArgumentException("Fields are null.");
         }
@@ -127,11 +127,13 @@ public class DataManagerImpl implements DataManager {
             throw new IllegalArgumentException("Passwords do not match.");
         }
         try {
+            connect();
             String queryUserExists = "SELECT COUNT(*) FROM Students WHERE username = '"+user+"'";
             Statement statementUserExists = connection.createStatement();
             ResultSet rs = statementUserExists.executeQuery(queryUserExists);
             rs.next();
             if (rs.getInt(1) > 0) {
+                disconnect();
                 throw new IllegalArgumentException("Username already taken.");
             }
             rs.close();
@@ -145,9 +147,11 @@ public class DataManagerImpl implements DataManager {
             ResultSet rsStudent = statementFindID.executeQuery(queryFindID);
             int id = rsStudent.getInt(1);
             rsStudent.close();
+            disconnect();
             return new Student (user, password, id);
 
         } catch(SQLException e){
+            disconnect();
             throw new RuntimeException(e);
         }
     }
@@ -341,8 +345,7 @@ public class DataManagerImpl implements DataManager {
 
     public static void main(String args[]) throws SQLException {
         DataManager thing = new DataManagerImpl();
-        thing.connect();
-        thing.disconnect();
+        thing.setUp();
     }
 
 }

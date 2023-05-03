@@ -36,7 +36,7 @@ public interface DataManager {
      *@throws IllegalArgumentException if username or password is empty
      *@throws IllegalArgumentException if password does not equal confirm
      */
-    Student createNewUser(String user, String password, String confirm);
+    Student createNewUser(String user, String password, String confirm) throws SQLException;
 
     /**
      *returns true if the course is valid

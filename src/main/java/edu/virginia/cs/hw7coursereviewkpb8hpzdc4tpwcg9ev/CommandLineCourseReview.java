@@ -69,6 +69,8 @@ public class CommandLineCourseReview {
                 }
                 catch(IllegalArgumentException e){
                     System.out.println(e);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
                 }
             }
             else{
