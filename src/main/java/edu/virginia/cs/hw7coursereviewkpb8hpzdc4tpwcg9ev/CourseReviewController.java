@@ -125,7 +125,9 @@ public class CourseReviewController {
             reviews = dataManager.getReviews(srSearchBox.getText());
             resetNode(srReviewsLabel, false);
             resetNode(srCourseName, false);
-            resetNode(srErrorLabel, true);
+            srCourseName.setText(srSearchBox.getText());
+            resetNode(srErrorLabel, false);
+            srErrorLabel.setText("Rating "+(((double)((int)(dataManager.getAverageRating(srSearchBox.getText())*100)))/100)+"/5 stars");
             resetNode(srReviewLabel1, false);
             srReviewLabel1.setText(reviews.get(0).getText());
             if(reviews.size() > 1) {
