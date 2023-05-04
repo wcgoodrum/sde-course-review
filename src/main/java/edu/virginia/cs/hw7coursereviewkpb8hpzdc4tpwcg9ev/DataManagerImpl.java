@@ -9,7 +9,7 @@ public class DataManagerImpl implements DataManager {
     private boolean connected = false;
 
     @Override
-    public void connect() throws SQLException {
+    public void connect() {
 
         String filePath = "Reviews.sqlite3";
 
@@ -104,7 +104,7 @@ public class DataManagerImpl implements DataManager {
     }
 
     @Override
-    public Student login(String user, String password) throws SQLException {
+    public Student login(String user, String password) throws SQLException{
         if (user == null || password == null) {
             throw new IllegalArgumentException("Fields are null.");
         }
@@ -112,28 +112,24 @@ public class DataManagerImpl implements DataManager {
             throw new IllegalArgumentException("Username or Password is empty.");
         }
 
-        try {
-            connect();
-            String queryUser = "SELECT * FROM Students WHERE username = '"+user+"'";
-            Statement statementUser = connection.createStatement();
-            ResultSet rs = statementUser.executeQuery(queryUser);
-            if (rs.getString(3).equals(password)) {
-                int id = rs.getInt(1);
-                rs.close();
-                disconnect();
-                return new Student(user, password, id);
-            } else {
-                disconnect();
-                throw new IllegalArgumentException("Username not found or Password incorrect.");
-            }
-        } catch(SQLException e){
+        connect();
+        String queryUser = "SELECT * FROM Students WHERE username = '"+user+"'";
+        Statement statementUser = connection.createStatement();
+        ResultSet rs = statementUser.executeQuery(queryUser);
+        if (rs.getString(3).equals(password)) {
+            int id = rs.getInt(1);
+            rs.close();
             disconnect();
-        throw new RuntimeException(e);
+            return new Student(user, password, id);
+        } else {
+            disconnect();
+            throw new IllegalArgumentException("Username not found or Password incorrect.");
         }
+
     }
 
     @Override
-    public Student createNewUser(String user, String password, String passwordConfirm) throws SQLException {
+    public Student createNewUser(String user, String password, String passwordConfirm) throws SQLException{
         if (user == null || password == null || passwordConfirm == null) {
             throw new IllegalArgumentException("Fields are null.");
         }
@@ -145,34 +141,29 @@ public class DataManagerImpl implements DataManager {
         if (!password.equals(passwordConfirm)) {
             throw new IllegalArgumentException("Passwords do not match.");
         }
-        try {
-            connect();
-            String queryUserExists = "SELECT COUNT(*) FROM Students WHERE username = '"+user+"'";
-            Statement statementUserExists = connection.createStatement();
-            ResultSet rs = statementUserExists.executeQuery(queryUserExists);
-            rs.next();
-            if (rs.getInt(1) > 0) {
-                disconnect();
-                throw new IllegalArgumentException("Username already taken.");
-            }
-            rs.close();
 
-            String queryCreation = "INSERT INTO Students (username, password) VALUES('"+user+"', '"+password+"')";
-            Statement statementCreation = connection.createStatement();
-            statementCreation.executeUpdate(queryCreation);
-
-            String queryFindID = "SELECT id FROM Students WHERE username = '"+user+"'";
-            Statement statementFindID = connection.createStatement();
-            ResultSet rsStudent = statementFindID.executeQuery(queryFindID);
-            int id = rsStudent.getInt(1);
-            rsStudent.close();
+        connect();
+        String queryUserExists = "SELECT COUNT(*) FROM Students WHERE username = '"+user+"'";
+        Statement statementUserExists = connection.createStatement();
+        ResultSet rs = statementUserExists.executeQuery(queryUserExists);
+        rs.next();
+        if (rs.getInt(1) > 0) {
             disconnect();
-            return new Student (user, password, id);
-
-        } catch (SQLException e) {
-            disconnect();
-            throw new RuntimeException(e);
+            throw new IllegalArgumentException("Username already taken.");
         }
+        rs.close();
+
+        String queryCreation = "INSERT INTO Students (username, password) VALUES('"+user+"', '"+password+"')";
+        Statement statementCreation = connection.createStatement();
+        statementCreation.executeUpdate(queryCreation);
+
+        String queryFindID = "SELECT id FROM Students WHERE username = '"+user+"'";
+        Statement statementFindID = connection.createStatement();
+        ResultSet rsStudent = statementFindID.executeQuery(queryFindID);
+        int id = rsStudent.getInt(1);
+        rsStudent.close();
+        disconnect();
+        return new Student (user, password, id);
     }
 
     @Override

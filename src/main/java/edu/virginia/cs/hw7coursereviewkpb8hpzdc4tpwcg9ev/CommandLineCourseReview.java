@@ -25,9 +25,9 @@ public class CommandLineCourseReview {
 
     public void loginScreen() {
         for (;;) {
-            System.out.print("Type LOGIN to login or NEW to create account > ");
+            System.out.print("Options: _LOGIN_ or make a _NEW_ account > ");
             String loginChoice = scanner.nextLine();
-            if (loginChoice.toUpperCase().equals("LOGIN")){
+            if (loginChoice.toUpperCase().contains("LOGIN")){
                 System.out.print("Enter Username > ");
                 String user = scanner.nextLine();
                 System.out.print("Enter Password > ");
@@ -48,7 +48,7 @@ public class CommandLineCourseReview {
                     throw new RuntimeException(e);
                 }
             }
-            else if (loginChoice.toUpperCase().equals("NEW")){
+            else if (loginChoice.toUpperCase().contains("NEW")){
                 System.out.print("Enter Username > ");
                 String user = scanner.nextLine();
                 System.out.print("Enter Password > ");
@@ -81,22 +81,22 @@ public class CommandLineCourseReview {
 
     public void mainMenu(){
         for(;;) {
-            System.out.println("To create a review type create \nTo look at reviews type see\nTo logout type logout");
+            System.out.print("Options: _CREATE_ new review, _BROWSE_ other reviews, _LOGOUT_ of account.\n >");
             String mainMenuChoice = scanner.nextLine().toUpperCase();
-            if (mainMenuChoice.equals("CREATE")) {
+            if (mainMenuChoice.contains("CREATE")) {
                 createReview();
-            } else if (mainMenuChoice.equals("SEE")) {
+            } else if (mainMenuChoice.contains("BROWSE")) {
                 seeReviews();
-            } else if (mainMenuChoice.equals("LOGOUT")) {
+            } else if (mainMenuChoice.contains("LOGOUT")) {
                 loginScreen();
             } else {
-                System.out.println("not a valid choice");
+                System.out.print("Invalid option, try again > ");
             }
         }
     }
 
     public void seeReviews(){
-        System.out.println("What course are you look for?");
+        System.out.print("Enter course pneumonic and number > ");
         String courseName = scanner.nextLine();
         try{
             List<Review> reviews = dataManager.getReviews(courseName);
@@ -107,24 +107,25 @@ public class CommandLineCourseReview {
             }
         }
         catch (IllegalArgumentException e){
+            System.out.println("Couldn't find course, did you type it correctly?");
             System.out.println(e);
         }
         mainMenu();
     }
 
     public void createReview(){
-        System.out.println("What course are you look for?");
+        System.out.print("Enter course pneumonic and number > ");
         String courseName = scanner.nextLine();
         try {
             if (dataManager.validCourse(courseName, student)) {
-                System.out.println("What would you like to say?");
+                System.out.print("Enter written review:\n > ");
                 String text = scanner.nextLine();
                 int rating = 0;
                 do {
-                    System.out.println("What would you rate this class 1-5 stars");
+                    System.out.print("Rating on scale of 1 to 5 > ");
                     rating = scanner.nextInt();
                     if (rating > 5 || rating < 0){
-                        System.out.println("rating must be between 1-5");
+                        System.out.println("Rating must be between 1-5.");
                     }
                 }
                 while (rating > 5 || rating < 0);
@@ -132,6 +133,7 @@ public class CommandLineCourseReview {
             }
         }
         catch (IllegalArgumentException e){
+            System.out.println("Couldn't find course, did you type it correctly?");
             System.out.println(e);
         }
         mainMenu();
