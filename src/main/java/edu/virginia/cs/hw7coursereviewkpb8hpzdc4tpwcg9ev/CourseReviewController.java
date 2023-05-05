@@ -165,9 +165,9 @@ public class CourseReviewController {
         }
         catch (IllegalArgumentException e){
             resetNode(srErrorLabel, false);
-            crErrorLabel.setText(e.getMessage());
+            srErrorLabel.setText(e.getMessage());
         }
-        resetNode(srSearchBox, true);
+        srSearchBox.setText("");
     }
     @FXML
     public void backButton(){
