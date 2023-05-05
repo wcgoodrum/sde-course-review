@@ -515,12 +515,12 @@ public class DataManagerImpl implements DataManager {
         }
     }
 
-    public static void main(String args[]) throws SQLException {
-        DataManager thing = new DataManagerImpl();
-//        thing.connect();
+//    public static void main(String args[]) throws SQLException {
+//        DataManager thing = new DataManagerImpl();
+////        thing.connect();
 //        thing.deleteTables();
-        thing.setUp();
-//        thing.disconnect();
-    }
+//        thing.setUp();
+////        thing.disconnect();
+//    }
 
 }
