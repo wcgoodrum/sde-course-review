@@ -74,7 +74,6 @@ public class CourseReviewController {
         try {
             if(lConfirmText.isDisable()) {
                 student = dataManager.login(lUsernameText.getText(), lPasswordText.getText());
-                System.out.println(student.getUsername());
                 CourseReviewApplication.setStudent(student);
             }
             else{
@@ -193,9 +192,13 @@ public class CourseReviewController {
         srReviewPageLabel.setText(String.valueOf(pageNum));
         srReviewLabel1.setText(reviews.get(pageNum*5-5).getText());
         if(reviews.size()>pageNum*5-4)srReviewLabel2.setText(reviews.get(pageNum*5-4).getText());
+        else srReviewLabel2.setText("");
         if(reviews.size()>pageNum*5-3)srReviewLabel3.setText(reviews.get(pageNum*5-3).getText());
+        else srReviewLabel3.setText("");
         if(reviews.size()>pageNum*5-2)srReviewLabel4.setText(reviews.get(pageNum*5-2).getText());
+        else srReviewLabel4.setText("");
         if(reviews.size()>pageNum*5-1)srReviewLabel5.setText(reviews.get(pageNum*5-1).getText());
+        else srReviewLabel5.setText("");
         if(reviews.size() < pageNum*5+1) srReviewForwardButton.setDisable(true);
         srReviewBackButton.setDisable(false);
     }
