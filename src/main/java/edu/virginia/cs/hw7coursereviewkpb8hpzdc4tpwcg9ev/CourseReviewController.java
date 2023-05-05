@@ -116,6 +116,7 @@ public class CourseReviewController {
     public void createReview(){
         student = CourseReviewApplication.getStudent();
         try{
+            student = CourseReviewApplication.getStudent();
             dataManager.addReview(student, crCourseText.getText(), crMessageText.getText(), Integer.parseInt(crRatingText.getText().replace(" ","")));
             resetNode(crErrorLabel, false);
             crErrorLabel.setText("Review Created");

@@ -9,7 +9,7 @@
         <Button fx:id="crMainMenuButton" layoutX="466.0" layoutY="14.0" mnemonicParsing="false" onAction="#switchToMainMenu" text="Back to Main Menu" />
         <VBox layoutX="1.0" layoutY="55.0" prefHeight="330.0" prefWidth="600.0">
             <children>
-                <Label text="Coruse">
+                <Label text="Course">
                     <font>
                         <Font size="15.0" />
                     </font>
