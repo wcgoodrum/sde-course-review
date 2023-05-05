@@ -59,7 +59,7 @@ public class DataManagerImpl implements DataManager {
             System.out.println("Populating Courses table now...");
             populateCoursesTable();
         }
-        if (reviewsRS.getInt(1) >= 0) {
+        if (reviewsRS.getInt(1) <= 0) {
             System.out.println("Populating Reviews table now...");
             populateReviewsTable();
         }
