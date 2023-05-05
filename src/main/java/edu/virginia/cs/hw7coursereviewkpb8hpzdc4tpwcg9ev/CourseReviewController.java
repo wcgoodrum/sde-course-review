@@ -58,12 +58,6 @@ public class CourseReviewController {
     }
     @FXML
     public void switchToSeeReviews(Event event) throws IOException {
-        System.out.println("im here");
-        student = CourseReviewApplication.getStudent();
-        System.out.println(student.getUsername());
-        System.out.println("im there");
-
-
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("seeReviews.fxml")));
         Stage stage = (Stage)((Node)(event.getSource())).getScene().getWindow();
         stage.setScene(new Scene(root, 600, 400));
@@ -123,6 +117,7 @@ public class CourseReviewController {
     @FXML
     public void createReview(){
         try{
+            student = CourseReviewApplication.getStudent();
             dataManager.addReview(student, crCourseText.getText(), crMessageText.getText(), Integer.parseInt(crRatingText.getText().replace(" ","")));
             resetNode(crErrorLabel, false);
             crErrorLabel.setText("Review Created");
