@@ -7,4 +7,5 @@ Will Goodrum (wcg9ev)
 
 Chai Zhang (zdc4tp)
 
-Run the CourseReviewApplication class to use the GUI implementation of Course Review.
+Run the CommandLineCourseReview class to use the command line implementation of course review.
+Run the CourseReviewApplication class to use the GUI implementation of Course Review (half-finished).
