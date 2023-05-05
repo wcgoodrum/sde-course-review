@@ -97,7 +97,7 @@ public class CommandLineCourseReview {
 
     public void seeReviews(){
         System.out.print("Enter course pneumonic and number > ");
-        String courseName = scanner.nextLine();
+        String courseName = scanner.nextLine().toUpperCase();
         try{
             List<Review> reviews = dataManager.getReviews(courseName);
             double rating = dataManager.getAverageRating(courseName);
@@ -115,7 +115,7 @@ public class CommandLineCourseReview {
 
     public void createReview(){
         System.out.print("Enter course pneumonic and number > ");
-        String courseName = scanner.nextLine();
+        String courseName = scanner.nextLine().toUpperCase();
         try {
             if (dataManager.validCourse(courseName, student)) {
                 System.out.print("Enter written review:\n > ");

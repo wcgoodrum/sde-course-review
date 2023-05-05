@@ -220,7 +220,7 @@ public class DataManagerImpl implements DataManager {
         try {
             String[] depNcat = courseName.split(" ");
             connect();
-            String queryFindCourse = String.format("SELECT * FROM Courses WHERE department = '%s' AND catalog = '%s'", depNcat[0], depNcat[1]);
+            String queryFindCourse = String.format("SELECT * FROM Courses WHERE department = '%s' AND catalog = '%s'", depNcat[0].toUpperCase(), depNcat[1]);
             Statement statementFindCourse = connection.createStatement();
             ResultSet rs = statementFindCourse.executeQuery(queryFindCourse);
 
@@ -257,11 +257,11 @@ public class DataManagerImpl implements DataManager {
 
     private int addCourse(String department, String catalog) throws SQLException{
         connect();
-        String queryCreation = String.format("INSERT INTO Courses (department, catalog) VALUES('%s', '%s')", department, catalog);
+        String queryCreation = String.format("INSERT INTO Courses (department, catalog) VALUES('%s', '%s')", department.toUpperCase(), catalog);
         Statement statementCreation = connection.createStatement();
         statementCreation.executeUpdate(queryCreation);
 
-        String queryFindID = String.format("SELECT id FROM Courses WHERE department = '%s' AND catalog = '%s'", department, catalog);
+        String queryFindID = String.format("SELECT id FROM Courses WHERE department = '%s' AND catalog = '%s'", department.toUpperCase(), catalog);
         Statement statementFindID = connection.createStatement();
         ResultSet rs = statementFindID.executeQuery(queryFindID);
         int id = rs.getInt(1);
