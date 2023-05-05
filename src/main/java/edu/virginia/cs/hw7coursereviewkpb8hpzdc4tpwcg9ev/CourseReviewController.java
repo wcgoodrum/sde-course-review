@@ -135,7 +135,7 @@ public class CourseReviewController {
     @FXML
     public void search(){
         try{
-            reviews = dataManager.getReviews(srSearchBox.getText());
+            reviews = dataManager.getReviews(srSearchBox.getText().toUpperCase());
             resetNode(srReviewsLabel, false);
             resetNode(srCourseName, false);
             srCourseName.setText(srSearchBox.getText().toUpperCase());
