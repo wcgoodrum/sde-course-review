@@ -129,7 +129,6 @@ public class CourseReviewController {
     }
     @FXML
     public void search(){
-        resetSeeReviews();
         try{
             reviews = dataManager.getReviews(srSearchBox.getText());
             resetNode(srReviewsLabel, false);
@@ -164,10 +163,11 @@ public class CourseReviewController {
             }
         }
         catch (IllegalArgumentException e){
+            resetSeeReviews();
             resetNode(srErrorLabel, false);
-            crErrorLabel.setText(e.getMessage());
+            srErrorLabel.setText(e.getMessage());
         }
-        resetNode(srSearchBox, true);
+        srSearchBox.setText("");
     }
     @FXML
     public void backButton(){
