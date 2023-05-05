@@ -8,6 +8,15 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class CourseReviewApplication extends Application {
+
+    private static Student currentStudent;
+    public static void setStudent(Student student) {
+        currentStudent=student;
+    }
+    public static Student getStudent() {
+        return currentStudent;
+    }
+
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(CourseReviewApplication.class.getResource("login.fxml"));

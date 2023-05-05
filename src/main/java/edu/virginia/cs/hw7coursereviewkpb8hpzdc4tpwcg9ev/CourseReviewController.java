@@ -43,6 +43,8 @@ public class CourseReviewController {
     @FXML
     public void switchToLogin(Event event) throws IOException {
         student = null;
+//        CourseReviewApplication.setStudent(student);
+
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("login.fxml")));
         Stage stage = (Stage)((Node)(event.getSource())).getScene().getWindow();
         stage.setScene(new Scene(root, 600, 400));
@@ -56,6 +58,12 @@ public class CourseReviewController {
     }
     @FXML
     public void switchToSeeReviews(Event event) throws IOException {
+        System.out.println("im here");
+        student = CourseReviewApplication.getStudent();
+        System.out.println(student.getUsername());
+        System.out.println("im there");
+
+
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("seeReviews.fxml")));
         Stage stage = (Stage)((Node)(event.getSource())).getScene().getWindow();
         stage.setScene(new Scene(root, 600, 400));
@@ -73,9 +81,12 @@ public class CourseReviewController {
         try {
             if(lConfirmText.isDisable()) {
                 student = dataManager.login(lUsernameText.getText(), lPasswordText.getText());
+                System.out.println(student.getUsername());
+                CourseReviewApplication.setStudent(student);
             }
             else{
                 student = dataManager.createNewUser(lUsernameText.getText(), lPasswordText.getText(), lConfirmText.getText());
+                CourseReviewApplication.setStudent(student);
             }
             if(student == null){
                 resetNode(lErrorLabel, false);
