@@ -44,10 +44,10 @@ public interface DataManager {
      */
     boolean validCourse(String courseName, Student student);
 
+
     /**
      *adds a course to the database if the course does not exist
      *adds review to the course
-     *@throws IllegalArgumentException if Student does not exist
      *@throws IllegalArgumentException if text is empty              if you care
      *@throws IllegalArgumentException if courseName is not vaild
      *@throws IllegalArgumentException if rating is not between 1-5

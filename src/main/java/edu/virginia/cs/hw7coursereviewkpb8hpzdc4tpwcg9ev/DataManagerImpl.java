@@ -9,12 +9,13 @@ public class DataManagerImpl implements DataManager {
     private boolean connected = false;
 
     @Override
-    public void connect() {
+    public void connect() throws SQLException{
 
         String filePath = "Reviews.sqlite3";
 
         if (connected) {
-            throw new IllegalStateException("Already Connected.");
+            return;
+//            throw new IllegalStateException("Already Connected.");
         }
         try {
             Class.forName("org.sqlite.JDBC");
@@ -82,7 +83,8 @@ public class DataManagerImpl implements DataManager {
                 "catalog VARCHAR(255) NOT NULL)";
         String queryToCreateReviews = "CREATE TABLE Reviews " +
                 "(id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "'text' VARCHAR(255) NOT NULL, " +
+//                "'text' VARCHAR(255) NOT NULL, " +
+                "text VARCHAR(255) NOT NULL, " +  // did you mean to use single quotes around text?
                 "rating INTEGER NOT NULL, " +
                 "StudentID INTEGER NOT NULL, " +
                 "CourseID INTEGER NOT NULL, " +
@@ -113,11 +115,13 @@ public class DataManagerImpl implements DataManager {
         }
 
         connect();
-        String queryUser = "SELECT * FROM Students WHERE username = '"+user+"'";
+        String queryUser = String.format("SELECT * FROM Students WHERE username = '%s'", user);
         Statement statementUser = connection.createStatement();
         ResultSet rs = statementUser.executeQuery(queryUser);
-        if (rs.getString(3).equals(password)) {
-            int id = rs.getInt(1);
+        rs.next();
+        String test = rs.getString(1);
+        if (rs.getString("password").equals(password)) {
+            int id = rs.getInt("id");
             rs.close();
             disconnect();
             return new Student(user, password, id);
@@ -168,12 +172,135 @@ public class DataManagerImpl implements DataManager {
 
     @Override
     public boolean validCourse(String courseName, Student student) {
-        return false;
+        String[] depNcat = courseName.split(" ");
+        if (!isAlpha(depNcat[0]) || !isNumeric(depNcat[1])){
+            return false;
+        }
+        Course requestedCourse;
+        try {
+            requestedCourse = getCourse(courseName);
+        } catch(IllegalArgumentException e){
+            requestedCourse = new Course("", "", -1);
+        }
+        try {
+            connect();
+            String queryReview = String.format("SELECT COUNT(*) FROM Reviews WHERE StudentId = '%d' AND CourseID = '%d'", requestedCourse.getId(), student.getId());
+            Statement statementReview = connection.createStatement();
+            ResultSet rs = statementReview.executeQuery(queryReview);
+            rs.next();
+            if (rs.getInt(1) > 0) {
+                disconnect();
+                throw new IllegalArgumentException("User already reviewed course.");
+            }
+            rs.close();
+            return true;
+        } catch(SQLException e) {
+            throw new RuntimeException("SQL error");
+        }
+    }
+
+//    public Student getStudent(String user) throws SQLException {  // unnecessary method
+//        connect();
+//        String queryStudent = String.format("SELECT * FROM Students WHERE username = '%s'", user);
+//        Statement statementStudent = connection.createStatement();
+//        ResultSet rs = statementStudent.executeQuery(queryStudent);
+//
+//        if (!rs.next()){
+//            throw new IllegalArgumentException("Student couldn't be found");
+//        }
+//
+//        Student foundStudent = new Student(rs.getString("username"), rs.getString("password"), rs.getInt("id"));
+//        rs.close();
+//        disconnect();
+//        return foundStudent;
+//    }
+
+    private Course getCourse(String courseName) {
+        try {
+            String[] depNcat = courseName.split(" ");
+            connect();
+            String queryFindCourse = String.format("SELECT * FROM Courses WHERE department = '%s' AND catalog = '%s'", depNcat[0], depNcat[1]);
+            Statement statementFindCourse = connection.createStatement();
+            ResultSet rs = statementFindCourse.executeQuery(queryFindCourse);
+
+            if (!rs.next()) {
+                throw new IllegalArgumentException("Course couldn't be found");
+            }
+
+            Course foundCourse = new Course(rs.getString("department"), rs.getString("catalog"), rs.getInt("id"));
+            rs.close();
+            disconnect();
+            return foundCourse;
+        } catch(SQLException e) {
+            throw new RuntimeException("SQL failure");
+        }
+    }
+
+    private boolean isAlpha(String x){
+        for (int i = 0; i < x.length(); i++) {
+            if (!Character.isLetter(x.charAt(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean isNumeric(String x){
+        for (int i = 0; i < x.length(); i++) {
+            if (!Character.isDigit(x.charAt(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private int addCourse(String department, String catalog) throws SQLException{
+        connect();
+        String queryCreation = String.format("INSERT INTO Courses (department, catalog) VALUES('%s', '%s')", department, catalog);
+        Statement statementCreation = connection.createStatement();
+        statementCreation.executeUpdate(queryCreation);
+
+        String queryFindID = String.format("SELECT id FROM Courses WHERE department = '%s' AND catalog = '%s'", department, catalog);
+        Statement statementFindID = connection.createStatement();
+        ResultSet rs = statementFindID.executeQuery(queryFindID);
+        int id = rs.getInt(1);
+        rs.close();
+        disconnect();
+        return id;
     }
 
     @Override
     public void addReview(Student student, String courseName, String text, int rating) {
+        if (rating > 5 || rating < 1) {
+            throw new IllegalArgumentException("rating out of bounds");
+        }
+        if (text.length() == 0) {
+            throw new IllegalArgumentException("text is empty");
+        }
+        if(!validCourse(courseName, student)){  // validCourse will throw illegalArgumentException for bad courseNames
+            throw new IllegalArgumentException("illegal format for courseName");
+        }
 
+        try {
+            int courseId;
+            try {
+                Course requestedCourse = getCourse(courseName);
+                courseId = requestedCourse.getId();
+            } catch(IllegalArgumentException e) {
+                String[] depNcat = courseName.split(" ");
+                courseId = addCourse(depNcat[0], depNcat[1]);
+            }
+
+            connect();
+            String queryCreation = String.format("INSERT INTO Courses (text, rating, studentID, courseID) VALUES('%s', '%d', '%d', '%d')",
+                    text, rating, student.getId(), courseId);
+            Statement statementCreation = connection.createStatement();
+            statementCreation.executeUpdate(queryCreation);
+            disconnect();
+
+        } catch(SQLException e) {
+            throw new RuntimeException("SQL failure");
+        }
     }
 
     @Override
@@ -189,7 +316,8 @@ public class DataManagerImpl implements DataManager {
     @Override
     public void disconnect() throws SQLException {
         if (!connected) {
-            throw new IllegalStateException("The manager isn't connected.");
+            return;
+//            throw new IllegalStateException("The manager isn't connected.");
         }
         connection.commit();
         connection.close();
