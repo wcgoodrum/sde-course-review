@@ -1,6 +1,7 @@
 package edu.virginia.cs.hw7coursereviewkpb8hpzdc4tpwcg9ev;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DataManagerImpl implements DataManager {
@@ -115,12 +116,14 @@ public class DataManagerImpl implements DataManager {
         }
 
         connect();
+//        String queryUser = String.format("SELECT * FROM Students WHERE username = '%s'", user);
+//        Statement statementUser = connection.createStatement();
+//        ResultSet rs = statementUser.executeQuery(queryUser);
+//        rs.next();
         String queryUser = String.format("SELECT * FROM Students WHERE username = '%s'", user);
-        Statement statementUser = connection.createStatement();
-        ResultSet rs = statementUser.executeQuery(queryUser);
-        rs.next();
-        String test = rs.getString(1);
-        if (rs.getString("password").equals(password)) {
+        Statement stmtUser = connection.createStatement();
+        ResultSet rs = stmtUser.executeQuery(queryUser);
+        if (rs.next() && rs.getString("password").equals(password)) {
             int id = rs.getInt("id");
             rs.close();
             disconnect();
@@ -137,11 +140,9 @@ public class DataManagerImpl implements DataManager {
         if (user == null || password == null || passwordConfirm == null) {
             throw new IllegalArgumentException("Fields are null.");
         }
-
         if (user.length() == 0 || password.length() == 0) {
             throw new IllegalArgumentException("Username or Password is empty.");
         }
-
         if (!password.equals(passwordConfirm)) {
             throw new IllegalArgumentException("Passwords do not match.");
         }
@@ -173,7 +174,7 @@ public class DataManagerImpl implements DataManager {
     @Override
     public boolean validCourse(String courseName, Student student) {
         String[] depNcat = courseName.split(" ");
-        if (!isAlpha(depNcat[0]) || !isNumeric(depNcat[1])){
+        if (depNcat.length < 2 || !isAlpha(depNcat[0]) || !isNumeric(depNcat[1])){
             return false;
         }
         Course requestedCourse;
@@ -292,7 +293,7 @@ public class DataManagerImpl implements DataManager {
             }
 
             connect();
-            String queryCreation = String.format("INSERT INTO Courses (text, rating, studentID, courseID) VALUES('%s', '%d', '%d', '%d')",
+            String queryCreation = String.format("INSERT INTO Reviews (text, rating, studentID, courseID) VALUES('%s', '%d', '%d', '%d')",
                     text, rating, student.getId(), courseId);
             Statement statementCreation = connection.createStatement();
             statementCreation.executeUpdate(queryCreation);
@@ -305,12 +306,43 @@ public class DataManagerImpl implements DataManager {
 
     @Override
     public List<Review> getReviews(String courseName) {
-        return null;
+        int courseId;
+        try {
+            courseId = getCourse(courseName).getId();
+        } catch (Exception e) {
+            throw new IllegalArgumentException("bad name/course doesn't exist");
+        }
+        try {
+            connect();
+            String query = String.format("SELECT * FROM Reviews WHERE courseID = %d", courseId);
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+
+            List<Review> reviews = new ArrayList<Review>();
+            while(rs.next()){
+                Review review = new Review(rs.getInt("id"), rs.getString("text"), rs.getInt("rating"));
+                reviews.add(review);
+            }
+            rs.close();
+            disconnect();
+            return reviews;
+
+        } catch(SQLException e){
+            throw new RuntimeException("SQL failure");
+        }
     }
 
     @Override
     public double getAverageRating(String courseName) {
-        return 0;
+        List<Review> reviews = getReviews(courseName);
+        double avRating = 0;
+        if (reviews.size() == 0) {
+            return -1;
+        }
+        for (int i = 0; i < reviews.size(); i++){
+            avRating += reviews.get(i).getRating();
+        }
+        return avRating/reviews.size();
     }
 
     @Override
@@ -485,7 +517,7 @@ public class DataManagerImpl implements DataManager {
     public static void main(String args[]) throws SQLException {
         DataManager thing = new DataManagerImpl();
 //        thing.connect();
-        thing.deleteTables();
+//        thing.deleteTables();
         thing.setUp();
 //        thing.disconnect();
     }

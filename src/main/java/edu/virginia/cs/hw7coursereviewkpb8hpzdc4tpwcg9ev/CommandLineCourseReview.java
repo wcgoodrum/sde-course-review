@@ -33,7 +33,7 @@ public class CommandLineCourseReview {
                 System.out.print("Enter Password > ");
                 String password = scanner.nextLine();
                 try{
-                    Student student = dataManager.login(user, password);
+                    student = dataManager.login(user, password);
                     if(student != null){
                         System.out.println("Welcome "+student.getUsername());
                         mainMenu();
@@ -58,7 +58,7 @@ public class CommandLineCourseReview {
                 System.out.println(user + password + confirm);
 
                 try{
-                    Student student = dataManager.createNewUser(user, password, confirm);
+                    student = dataManager.createNewUser(user, password, confirm);
                     if(student != null){
                         System.out.println("Welcome "+student.getUsername());
                         mainMenu();
@@ -81,7 +81,7 @@ public class CommandLineCourseReview {
 
     public void mainMenu(){
         for(;;) {
-            System.out.print("Options: _CREATE_ new review, _BROWSE_ other reviews, _LOGOUT_ of account.\n >");
+            System.out.print("Options: _CREATE_ new review, _BROWSE_ other reviews, _LOGOUT_ of account.\n > ");
             String mainMenuChoice = scanner.nextLine().toUpperCase();
             if (mainMenuChoice.contains("CREATE")) {
                 createReview();
@@ -121,14 +121,18 @@ public class CommandLineCourseReview {
                 System.out.print("Enter written review:\n > ");
                 String text = scanner.nextLine();
                 int rating = 0;
-                do {
+                while (rating > 5 || rating < 1) {
                     System.out.print("Rating on scale of 1 to 5 > ");
-                    rating = scanner.nextInt();
-                    if (rating > 5 || rating < 0){
+                    try {
+                        rating = Integer.parseInt(scanner.nextLine());
+                    } catch (NumberFormatException e) {
+                        rating = 0;
+                    }
+                    if (rating > 5 || rating < 1){
                         System.out.println("Rating must be between 1-5.");
                     }
                 }
-                while (rating > 5 || rating < 0);
+
                 dataManager.addReview(student,courseName,text,rating);
             }
         }
