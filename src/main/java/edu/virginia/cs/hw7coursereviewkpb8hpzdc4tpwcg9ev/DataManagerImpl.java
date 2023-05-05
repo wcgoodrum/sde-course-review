@@ -185,10 +185,13 @@ public class DataManagerImpl implements DataManager {
         }
         try {
             connect();
-            String queryReview = String.format("SELECT COUNT(*) FROM Reviews WHERE StudentId = '%d' AND CourseID = '%d'", requestedCourse.getId(), student.getId());
+            int test1 = requestedCourse.getId();
+            int test2 = student.getId();
+            String queryReview = String.format("SELECT COUNT(*) FROM Reviews WHERE StudentId = '%d' AND CourseID = '%d'", student.getId(), requestedCourse.getId());
             Statement statementReview = connection.createStatement();
             ResultSet rs = statementReview.executeQuery(queryReview);
             rs.next();
+            int test3 = rs.getInt(1);
             if (rs.getInt(1) > 0) {
                 disconnect();
                 throw new IllegalArgumentException("User already reviewed course.");
