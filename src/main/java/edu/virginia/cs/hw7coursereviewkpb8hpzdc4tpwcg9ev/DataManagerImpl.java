@@ -310,7 +310,6 @@ public class DataManagerImpl implements DataManager {
         try {
             courseId = getCourse(courseName).getId();
         } catch (Exception e) {
-            System.out.println(courseName);
             throw new IllegalArgumentException("bad name/course doesn't exist");
         }
         try {

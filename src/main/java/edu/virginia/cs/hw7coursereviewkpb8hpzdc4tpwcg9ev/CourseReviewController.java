@@ -117,7 +117,7 @@ public class CourseReviewController {
         student = CourseReviewApplication.getStudent();
         try{
             student = CourseReviewApplication.getStudent();
-            dataManager.addReview(student, crCourseText.getText(), crMessageText.getText(), Integer.parseInt(crRatingText.getText().replace(" ","")));
+            dataManager.addReview(student, crCourseText.getText().toUpperCase(), crMessageText.getText(), Integer.parseInt(crRatingText.getText().replace(" ","")));
             resetNode(crErrorLabel, false);
             crErrorLabel.setText("Review Created");
         }
@@ -138,9 +138,9 @@ public class CourseReviewController {
             reviews = dataManager.getReviews(srSearchBox.getText());
             resetNode(srReviewsLabel, false);
             resetNode(srCourseName, false);
-            srCourseName.setText(srSearchBox.getText());
+            srCourseName.setText(srSearchBox.getText().toUpperCase());
             resetNode(srErrorLabel, false);
-            srErrorLabel.setText("Rating "+(((double)((int)(dataManager.getAverageRating(srSearchBox.getText())*100)))/100)+"/5 stars");
+            srErrorLabel.setText("Rating "+(((double)((int)(dataManager.getAverageRating(srSearchBox.getText().toUpperCase())*100)))/100)+"/5 stars");
             resetNode(srReviewLabel1, false);
             srReviewLabel1.setText(reviews.get(0).getText());
             if(reviews.size() > 1) {
