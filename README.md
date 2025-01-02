@@ -1,4 +1,5 @@
 This is a project from Software Developement Essentials (CS-3140) where we created an application for reviewing courses using Java, SQLite, and JavaFX.
+
 ---
 
 
