@@ -1,3 +1,7 @@
+This is a project from Software Developement Essentials (CS-3140) where we created an application for reviewing courses using Java, SQLite, and JavaFX.
+---
+
+
 # hw7-coursereview-kpb8hp-zdc4tp-wcg9ev
 hw7-coursereview-kpb8hp-zdc4tp-wcg9ev created by GitHub Classroom
 
